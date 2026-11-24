@@ -144,16 +144,16 @@ input[type=text]{font:inherit;width:110px;padding:6px 9px;border:1px solid var(-
         <li><button data-k="1"><span class="n">1</span><span><b>Chiqindi solinadigan joy</b><small>Old tomondagi eshikcha. Odam chiqindini shu yerdan soladi.</small></span></button></li>
         <li><button data-k="2"><span class="n">2</span><span><b>Tarozi (qora)</b><small>Chap bo'limning tagida, tokchada turadi. Chiqindini kg da o'lchaydi. O'lchovdan keyin itargich chiqindini 3-joydagi qutiga tushiradi. Tepasida o'ng burchakda kamera turadi.</small></span></button></li>
         <li><button data-k="3"><span class="n">3</span><span><b>Yig'iladigan joy (chiqindi qutisi)</b><small>Ichida g'ildirakli chiqindi qutisi turadi. Tekshirilgan hamma chiqindi shu qutiga tushadi. Quti to'lsa, old tomondagi eshikdan chiqarib bo'shatiladi.</small></span></button></li>
-        <li><button data-k="4"><span class="n">4</span><span><b>Monitor (sensorli)</b><small>Barmoq bilan ishlaydi: ID kiritish, kg va bonusni ko'rish.</small></span></button></li>
+        <li><button data-k="4"><span class="n">4</span><span><b>Monitor (sensorli)</b><small>Barmoq bilan ishlaydi: 8 xonali ID kiritish, kg va bonusni (so'mda) ko'rish.</small></span></button></li>
         <li><button data-k="5"><span class="n">5</span><span><b>Havo aylanish joyi</b><small>Ventilyator. Ichkaridagi chiqindi sasib qolmasligi uchun havoni aylantiradi.</small></span></button></li>
-        <li><button data-k="cam"><span class="n">K</span><span><b>Kamera</b><small>2-joyning o'ng tomoni tepasida. Shisha, butilka, plastik, tosh va temirni aniqlaydi. Kerak bo'lmagan narsa bo'lsa, bonus olgan odamning ID raqamiga ogohlantirish yuboradi.</small></span></button></li>
+        <li><button data-k="cam"><span class="n">K</span><span><b>Kamera</b><small>2-joyning o'ng tomoni tepasida. Chiqindi toza organik ekanini tekshiradi; shisha, butilka, plastik, tosh yoki temir aniqlansa, bonus berilmaydi va ID egasiga ogohlantirish yuboriladi.</small></span></button></li>
       </ul>
     </section>
 
     <section>
       <h2>Jarayonni sinab ko'ring</h2>
       <div class="chips" id="types"></div>
-      <div class="row"><label for="uid">Foydalanuvchi ID</label><input type="text" id="uid" value="004512" inputmode="numeric" maxlength="8"></div>
+      <div class="row"><label for="uid">Foydalanuvchi ID</label><input type="text" id="uid" value="58211508" inputmode="numeric" maxlength="8" pattern="[0-9]{8}"></div>
       <button class="btn wide" id="run">Chiqindini solish</button>
     </section>
 
@@ -169,9 +169,9 @@ input[type=text]{font:inherit;width:110px;padding:6px 9px;border:1px solid var(-
       <ul class="steps" id="steps">
         <li data-s="door">Eshik ochiladi, chiqindi taroziga tushadi</li>
         <li data-s="weigh">Tarozi og'irlikni kg da o'lchaydi</li>
-        <li data-s="bonus">Odamning ID raqamiga bonus beriladi</li>
         <li data-s="scan">Kamera chiqindini tekshiradi</li>
-        <li data-s="warn">Kerak bo'lmagan narsa bo'lsa, ID ga ogohlantirish</li>
+        <li data-s="bonus">Toza organik bo'lsa: 1 kg = 200 so'm ID ga yoziladi</li>
+        <li data-s="warn">Begona narsa bo'lsa: bonus yo'q, ID ga ogohlantirish yoki blok</li>
         <li data-s="push">Itargich chiqindini 3-joydagi qutiga tushiradi</li>
       </ul>
     </section>
@@ -179,14 +179,25 @@ input[type=text]{font:inherit;width:110px;padding:6px 9px;border:1px solid var(-
     <section>
       <h2>Kamera nimani qabul qiladi</h2>
       <div class="mat" id="mat"></div>
-      <p class="note">Belgini olib tashlasangiz, shu tur "kerak emas" bo'ladi va ogohlantirish yuboriladi.</p>
+      <p class="note">BIO-BONUS faqat chiriydigan organik chiqindini qabul qiladi. Sinov uchun belgini o'zgartirishingiz mumkin.</p>
+    </section>
+
+    <section>
+      <h2>Ogohlantirish qoidasi</h2>
+      <ul class="steps rules">
+        <li>1-marta begona chiqindi — ogohlantirish</li>
+        <li>Ogohlantirishdan keyin darhol yana begona — blok (3 kun, keyin 7 kun)</li>
+        <li>Orada toza chiqindi topshirilsa — yana faqat ogohlantirish</li>
+        <li>Blok paytida bonus 0, lekin balans saqlanadi</li>
+      </ul>
+      <p class="note" id="idState">ID holati: faol</p>
     </section>
 
     <section>
       <h2>Hisob</h2>
       <div class="stats">
         <div><b id="sKg">0.00 kg</b><span>3-joyda yig'ilgan</span></div>
-        <div><b id="sBonus">0</b><span>berilgan bonus (ball)</span></div>
+        <div><b id="sBonus">0</b><span>berilgan bonus (so'm)</span></div>
         <div><b id="sFill">0%</b><span>quti to'lgan</span></div>
         <div style="display:grid;place-items:center"><button class="btn ghost" id="empty">Qutini bo'shatish</button></div>
       </div>
@@ -199,17 +210,26 @@ input[type=text]{font:inherit;width:110px;padding:6px 9px;border:1px solid var(-
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script>
 (function(){
+// Ilova bilan bir xil: faqat toza organik chiqindi qabul qilinadi, 1 kg = 200 so'm
 const TYPES = {
-  butilka:{name:"Plastik butilka", color:"#7cc4ef", ok:true,  kg:[0.3,1.2]},
-  shisha: {name:"Shisha",          color:"#3e9b5f", ok:true,  kg:[1.0,3.0]},
-  plastik:{name:"Plastik",         color:"#e9c23d", ok:true,  kg:[0.5,2.0]},
-  temir:  {name:"Temir",           color:"#9aa3a8", ok:false, kg:[1.0,4.0]},
-  tosh:   {name:"Tosh",            color:"#8a7a68", ok:false, kg:[2.0,6.0]},
+  organik:{name:"Organik chiqindi", color:"#6aa84f", ok:true,  kg:[0.8,4.5]},
+  butilka:{name:"Plastik butilka",  color:"#7cc4ef", ok:false, kg:[0.3,1.2]},
+  shisha: {name:"Shisha",           color:"#3e9b5f", ok:false, kg:[1.0,3.0]},
+  plastik:{name:"Plastik",          color:"#e9c23d", ok:false, kg:[0.5,2.0]},
+  temir:  {name:"Temir",            color:"#9aa3a8", ok:false, kg:[1.0,4.0]},
+  tosh:   {name:"Tosh",             color:"#8a7a68", ok:false, kg:[2.0,6.0]},
 };
-const BONUS_PER_KG = 100;
+const BONUS_PER_KG = 200;
+const fmt = n => Math.round(n).toLocaleString("en-US").replace(/,/g," ");
+/* Ogohlantirish qoidasi (ilova bilan bir xil):
+   1-begona chiqindi → ogohlantirish; ogohlantirishdan keyin orada toza chiqindisiz yana begona → blok
+   (birinchi blok 3 kun, keyingilari 7 kun); toza topshirish holatni tiklaydi; blok paytida bonus 0. */
+const accounts = {};
+function acct(id){ return accounts[id] || (accounts[id]={streak:0,blocks:0,until:0}); }
+const DAY=86400000;
 
 /* ---------- UI: tanlash va qabul jadvali ---------- */
-let selType = "butilka";
+let selType = "organik";
 const typesEl = document.getElementById("types"), matEl = document.getElementById("mat");
 Object.entries(TYPES).forEach(([k,t])=>{
   const b=document.createElement("button"); b.className="chip"; b.dataset.k=k; b.setAttribute("aria-pressed",k===selType);
@@ -217,9 +237,9 @@ Object.entries(TYPES).forEach(([k,t])=>{
   b.onclick=()=>{selType=k; typesEl.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.k===k));};
   typesEl.appendChild(b);
   const l=document.createElement("label");
-  l.innerHTML=`<span>${t.name}</span><span><em id="m-${k}">${t.ok?"kerak":"kerak emas"}</em> <input type="checkbox" id="chk-${k}" ${t.ok?"checked":""}></span>`;
+  l.innerHTML=`<span>${t.name}</span><span><em id="m-${k}">${t.ok?"qabul qilinadi":"taqiqlangan"}</em> <input type="checkbox" id="chk-${k}" ${t.ok?"checked":""}></span>`;
   matEl.appendChild(l);
-  l.querySelector("input").onchange=e=>{t.ok=e.target.checked; document.getElementById("m-"+k).textContent=t.ok?"kerak":"kerak emas";};
+  l.querySelector("input").onchange=e=>{t.ok=e.target.checked; document.getElementById("m-"+k).textContent=t.ok?"qabul qilinadi":"taqiqlangan";};
 });
 
 /* ---------- Sahna ---------- */
@@ -371,8 +391,8 @@ function drawScreen(o){
     g.fillStyle="#0a4a2e"; g.font="700 26px Inter, sans-serif"; g.textAlign="center"; g.fillText(o.button,w/2,360); g.textAlign="left";}
   scrTex.needsUpdate=true;
 }
-const idle=()=>drawScreen({title:"Xush kelibsiz",lines:["ID raqamingizni kiriting","va chiqindini 1-eshikka soling"],button:"Boshlash",id:uid.value});
-const uid=document.getElementById("uid"); uid.addEventListener("input",()=>{if(!busy)idle();});
+const idle=()=>drawScreen({title:"Xush kelibsiz",lines:["8 xonali ID raqamingizni kiriting","va organik chiqindini 1-eshikka soling"],button:"Boshlash",id:uid.value});
+const uid=document.getElementById("uid"); uid.addEventListener("input",()=>{uid.value=uid.value.replace(/\D/g,"").slice(0,8); if(!busy)idle(); if(uid.value.length===8)updateIdState(uid.value);});
 
 /* ---------- 5: ventilyator (o'ng devorda) ---------- */
 const fan=new THREE.Group(); fan.position.set(X1+0.012,1.05,0); scene.add(fan);
@@ -421,7 +441,16 @@ document.getElementById("reset").onclick=()=>{cam.position.copy(HOME.pos); contr
 /* ---------- chiqindi buyumlari ---------- */
 function makeItem(type){
   const t=TYPES[type], g=new THREE.Group(); let mat;
-  if(type==="butilka"||type==="shisha"){
+  if(type==="organik"){
+    // meva-sabzavot qoldiqlari: olma, po'choqlar, barg
+    const apple=new THREE.Mesh(new THREE.SphereGeometry(0.06,18,14),new THREE.MeshStandardMaterial({color:0xc0392b,roughness:0.6}));
+    apple.position.set(-0.05,0.06,0); g.add(apple);
+    const peelMat=new THREE.MeshStandardMaterial({color:0xe1b12c,roughness:0.7,side:THREE.DoubleSide});
+    [[0.06,0.03,0.03,0.4],[0.02,0.03,-0.07,-0.6]].forEach(([x,y,z,r])=>{const p=new THREE.Mesh(new THREE.CylinderGeometry(0.03,0.02,0.16,10,1,true,0,Math.PI),peelMat); p.rotation.set(Math.PI/2,0,r); p.position.set(x,y,z); g.add(p);});
+    const leafMat=new THREE.MeshStandardMaterial({color:0x6aa84f,roughness:0.8,side:THREE.DoubleSide});
+    const leaf=new THREE.Mesh(new THREE.CircleGeometry(0.06,12),leafMat); leaf.scale.set(1,0.55,1); leaf.rotation.set(-Math.PI/2.3,0,0.5); leaf.position.set(0.02,0.025,0.06); g.add(leaf);
+    const crust=new THREE.Mesh(new THREE.BoxGeometry(0.09,0.03,0.05),new THREE.MeshStandardMaterial({color:0xb7793e,roughness:0.9})); crust.position.set(0.09,0.015,-0.02); crust.rotation.y=0.7; g.add(crust);
+  }else if(type==="butilka"||type==="shisha"){
     const big=type==="shisha";
     mat=new THREE.MeshStandardMaterial({color:t.color,transparent:true,opacity:big?0.85:0.7,roughness:0.15,metalness:0.1});
     const r=big?0.065:0.06, h=big?0.22:0.24;
@@ -465,7 +494,8 @@ function log(msg,w){const li=document.createElement("li"); if(w)li.className="w"
 
 async function run(){
   if(busy)return; busy=true; runBtn.disabled=true;
-  const type=selType, t=TYPES[type], id=(uid.value||"000000").trim(), okType=t.ok;
+  const type=selType, t=TYPES[type], id=(uid.value||"").trim(), okType=t.ok;
+  if(!/^[0-9]{8}$/.test(id)){ log("ID aynan 8 ta raqamdan iborat bo'lishi kerak",true); uid.focus(); busy=false; runBtn.disabled=false; return; }
   clearSteps(); highlight("1"); step("door");
   drawScreen({title:"Eshik ochiq",lines:["Chiqindini 1-joyga soling"],id});
   await tween(0.7,k=>doorPivot.rotation.x=ease(k)*1.25);
@@ -482,27 +512,34 @@ async function run(){
   await tween(1.1,k=>drawScreen({title:"Tarozi o'lchamoqda",big:true,lines:[(kg*ease(k)).toFixed(2)+" kg","2-joy: tarozi"],id}));
   await wait(0.4);
 
-  highlight("4"); step("bonus");
-  const bonus=Math.round(kg*BONUS_PER_KG); totalBonus+=bonus; document.getElementById("sBonus").textContent=totalBonus.toLocaleString("uz");
-  drawScreen({title:"Bonus berildi",big:true,lines:["+"+bonus+" ball",kg.toFixed(2)+" kg × "+BONUS_PER_KG+" ball"],id,button:"Bonusni olish"});
-  await wait(1.4);
-
   highlight("cam"); step("scan");
-  drawScreen({title:"Kamera tekshirmoqda…",lines:["Shisha · butilka · plastik · tosh · temir"],id});
+  drawScreen({title:"Kamera tekshirmoqda…",lines:["Faqat toza organik chiqindi qabul qilinadi"],id});
   await tween(1.8,k=>{coneMat.opacity=0.12+Math.sin(k*Math.PI*6)*0.06; ledMat.color.set(k<1?0xff4d4d:0x86efac);});
   coneMat.opacity=0; ledMat.color.set(0x86efac);
 
+  const a=acct(id), now=Date.now(), blocked=a.until>now;
   if(!okType){
-    step("warn","warn");
+    step("warn","warn"); stepsEls.forEach(li=>{if(li.dataset.s==="bonus")li.className="";});
     coneMat.color.set(0xfb923c);
-    drawScreen({bg:"#3a1a0c",title:"Ogohlantirish!",lines:["Aniqlandi: "+t.name.toLowerCase()+" (kerak emas)","ID "+id+" ga ogohlantirish yuborildi"],id});
-    log(`ID ${id}: ogohlantirish yuborildi (${t.name.toLowerCase()} aniqlandi)`,true);
-    await wait(2.2); coneMat.color.set(0x86efac);
+    let head, sub;
+    if(blocked){ head="Hisob bloklangan"; sub="Bonus berilmadi, natija tarixga yozildi"; }
+    else if(a.streak>0){ const days=a.blocks>0?7:3; a.blocks++; a.until=now+days*DAY; a.streak=0; head=days+" kunlik blok"; sub="Ketma-ket ikkinchi marta begona chiqindi"; }
+    else { a.streak=1; head="Ogohlantirish!"; sub="Takrorlansa, bonus olish "+(a.blocks>0?7:3)+" kunga bloklanadi"; }
+    drawScreen({bg:"#3a1a0c",title:head,lines:["Aniqlandi: "+t.name.toLowerCase(),sub,"Bonus: 0 so'm"],id});
+    log(`ID ${id}: ${head.replace("!","")} — ${t.name.toLowerCase()} aniqlandi, bonus 0 so'm`,true);
+    await wait(2.4); coneMat.color.set(0x86efac);
   }else{
-    drawScreen({title:"Tekshiruv: joyida",lines:["Aniqlandi: "+t.name.toLowerCase(),"Ogohlantirish kerak emas"],id});
-    log(`ID ${id}: ${t.name.toLowerCase()}, ${kg.toFixed(2)} kg, +${bonus} ball`);
-    await wait(1.1);
+    a.streak=0; // toza topshirish ogohlantirish holatini tiklaydi
+    highlight("4"); step("bonus");
+    const bonus=blocked?0:Math.round(kg*BONUS_PER_KG);
+    totalBonus+=bonus; document.getElementById("sBonus").textContent=fmt(totalBonus);
+    drawScreen(blocked
+      ?{title:"Qabul qilindi",lines:["Hisob bloklangan: bonus 0 so'm","Balans saqlanadi"],id}
+      :{title:"Bonus berildi",big:true,lines:["+"+fmt(bonus)+" so'm",kg.toFixed(2)+" kg × "+BONUS_PER_KG+" so'm"],id});
+    log(blocked?`ID ${id}: ${kg.toFixed(2)} kg qabul qilindi, blok sababli bonus 0 so'm`:`ID ${id}: organik, ${kg.toFixed(2)} kg, +${fmt(bonus)} so'm`, blocked);
+    await wait(1.6);
   }
+  updateIdState(id);
 
   highlight("3"); step("push");
   drawScreen({title:"Qutiga tushirilmoqda",lines:["Itargich chiqindini 3-joydagi qutiga suradi"],id});
@@ -513,6 +550,10 @@ async function run(){
   highlight(null); idle(); busy=false; runBtn.disabled=false;
 }
 runBtn.onclick=run;
+function updateIdState(id){const a=acct(id), el=document.getElementById("idState"); if(!el)return;
+  if(a.until>Date.now()) el.textContent=`ID ${id} holati: bloklangan (${Math.ceil((a.until-Date.now())/DAY)} kun)`;
+  else if(a.streak>0) el.textContent=`ID ${id} holati: ogohlantirish olgan — keyingisi ham begona bo'lsa blok`;
+  else el.textContent=`ID ${id} holati: faol`;}
 
 /* ---------- tarozidan 3-joyga o'tkazish (alohida ko'rsatish) ---------- */
 const capEl=document.getElementById("cap");
@@ -573,12 +614,12 @@ const demoBtn=document.getElementById("demo");
 demoBtn.onclick=async()=>{
   if(busy)return; busy=true; runBtn.disabled=demoBtn.disabled=true;
   setXray(true); clearSteps(); step("push"); highlight("2");
-  const id=(uid.value||"000000").trim();
+  const id=(uid.value||"").trim()||"——";
   drawScreen({title:"Yig'ish joyiga o'tkazilmoqda",lines:["Itargich chiqindini 3-joyga suradi"],id});
   await flyTo(new THREE.Vector3(-0.15,1.05,2.9),new THREE.Vector3(-0.15,0.6,0),1.2);
   const item=makeItem(selType); item.rotation.y=Math.random()*Math.PI;
   const off=bottomOffset(item); item.position.set(SC,PLATE_TOP+off.lift,0);
-  caption("Chiqindi tarozida turibdi","O'lchandi, bonus berildi, kamera tekshirdi");
+  caption("Chiqindi tarozida turibdi","O'lchandi, kamera tekshirdi, bonus yozildi");
   await wait(1.6);
   await transfer(item,selType,2.2);
   stepsEls.forEach(li=>{if(li.className==="now")li.className="done";});
