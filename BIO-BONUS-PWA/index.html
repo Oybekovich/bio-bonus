@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="uz">
 <head>
 <meta charset="utf-8"/>
@@ -8,129 +7,256 @@
 <meta content="BIO-BONUS — chiqindini topshir, tabiatni asra, bonus ol." name="description"/>
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="default" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="BIO-BONUS" name="apple-mobile-web-app-title"/>
 <link href="./manifest.webmanifest" rel="manifest"/>
 <link href="./icons/icon.svg" rel="icon" type="image/svg+xml"/>
+<link href="./icons/icon-192.png" rel="apple-touch-icon"/>
 <title>BIO-BONUS — ekologik bonus ilovasi</title>
-
-<link href="./styles.css" rel="stylesheet"/><link href="./icons/icon-192.png" rel="apple-touch-icon"/><meta content="BIO-BONUS" name="apple-mobile-web-app-title"/></head>
+<link href="./styles.css" rel="stylesheet"/>
+</head>
 <body>
 <div class="app">
 <header class="topbar">
 <div class="topbar-inner">
-<button aria-label="Bosh sahifa" class="brand" data-page="home" type="button">
-<span class="brand-mark"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M20 4c-8 0-13 3-13 9a5 5 0 0 0 5 5c6 0 8-7 8-14Z"></path><path d="M4 21c2-5 6-8 11-11"></path></svg></span>
-<span><span class="brand-name">BIO-BONUS</span><span class="brand-sub">Tabiatga foyda, sizga bonus</span></span>
+<button aria-label="Bosh sahifa" data-i18n-aria="nav.home.tip" class="brand" data-page="home" type="button">
+<span class="brand-mark"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M20 4c-8 0-13 3-13 9a5 5 0 0 0 5 5c6 0 8-7 8-14Z"></path><path d="M4 21c2-5 6-8 11-11"></path></svg></span>
+<span><span class="brand-name">BIO-BONUS</span><span class="brand-sub" data-i18n="brand.sub">Tabiatga foyda, sizga bonus</span></span>
 </button>
-<div class="top-actions"><span class="pill">♻️ 1 kg = 200 so‘m</span><button aria-label="BIO-BONUS ilovasini o‘rnatish" class="install-button" id="installAppBtn" title="Ilovani qurilmaga o‘rnatish" type="button">⬇️ Ilovani o‘rnatish</button><button aria-label="Profil" class="avatar" data-page="account" id="avatarBtn" type="button">D</button></div>
+<div class="top-actions">
+<span class="pill" data-i18n="top.rate">♻️ 1 kg = 200 so‘m</span>
+<div aria-label="Til / Язык / Language" class="lang-switch" role="group">
+<button aria-pressed="true" class="lang-btn active" data-lang="uz" type="button">UZ</button>
+<button aria-pressed="false" class="lang-btn" data-lang="ru" type="button">RU</button>
+<button aria-pressed="false" class="lang-btn" data-lang="en" type="button">EN</button>
+</div>
+<button aria-label="BIO-BONUS ilovasini o‘rnatish" data-i18n-aria="top.installAria" class="install-button" id="installAppBtn" title="Ilovani qurilmaga o‘rnatish" data-i18n-title="top.installTitle" type="button" data-i18n="top.install">⬇️ Ilovani o‘rnatish</button>
+<button aria-label="Profil" data-i18n-aria="top.profile" class="avatar" data-page="account" id="avatarBtn" type="button">D</button>
+</div>
 </div>
 </header>
+
 <main class="main">
+<!-- ============ BOSH SAHIFA ============ -->
 <section class="screen active" id="screen-home">
-<div class="welcome"><div><div class="eyebrow">Yashil hayot shu yerdan boshlanadi</div><h1>Assalomu alaykum, <span id="helloName">Do‘st</span>! 🌿</h1><p>«Chiqindini topshir — tabiatni asra, bonusni ol!» 🌱</p></div><div class="date-chip" id="todayLabel"></div></div>
+<div class="welcome"><div><div class="eyebrow" data-i18n="home.eyebrow">Yashil hayot shu yerdan boshlanadi</div><h1><span data-i18n="home.hello">Assalomu alaykum</span>, <span id="helloName">Do‘st</span>! 🌿</h1><p data-i18n="home.slogan">«Chiqindini topshir — tabiatni asra, bonusni ol!» 🌱</p></div><div class="date-chip" id="todayLabel"></div></div>
 <div class="hero">
-<div class="hero-content"><div class="hero-label">Mening bonus balansim</div><div class="balance"><span id="balanceValue">0</span> <small>so‘m</small></div><div class="hero-note">Har 1 kg tasdiqlangan toza organik chiqindi uchun 200 so‘m</div><div class="hero-buttons"><button class="btn btn-primary" id="openKiosk" title="Avtomat o‘lchovi orqali bonus olish">♻️ Avtomat ID orqali bonus olish</button><button class="btn btn-light" data-page="shop">Bonus do‘koni ↗</button></div><div class="hero-buttons" style="margin-top:10px"><button class="btn btn-light" id="openWithdraw" title="Demo balansni kartaga chiqarish so‘rovi">💳 Kartaga chiqarish</button><span class="lock-inline-hint" id="withdrawLockHint" hidden>Blok muddati tugaguncha kartaga chiqarish yopiq.</span></div></div>
-<div class="hero-side"><div class="leaf">🌱</div><strong>Har bir kilogramm muhim!</strong><span>Chiqindini saralang, shaxsiy 8 xonali ID orqali bonusingizni hisobingizga o‘tkazing.</span></div>
+<div class="hero-content">
+<div class="hero-label" data-i18n="home.balanceLabel">Mening bonus balansim</div>
+<div class="balance"><span id="balanceValue">0</span> <small data-i18n="cur">so‘m</small></div>
+<div class="hero-note" data-i18n="home.rateNote">Har 1 kg tasdiqlangan toza organik chiqindi uchun 200 so‘m</div>
+<div class="hero-buttons"><button class="btn btn-primary" id="openKiosk" type="button" data-i18n="home.kioskBtn">♻️ Avtomat ID orqali bonus olish</button><button class="btn btn-light" data-page="shop" type="button" data-i18n="home.shopBtn">Bonus do‘koni ↗</button></div>
+<div class="hero-buttons" style="margin-top:10px"><button class="btn btn-light" id="openWithdraw" type="button" data-i18n="home.withdrawBtn">💳 Kartaga chiqarish</button><span class="lock-inline-hint" id="withdrawLockHint" hidden data-i18n="home.withdrawLock">Blok muddati tugaguncha kartaga chiqarish yopiq.</span></div>
+</div>
+<div class="hero-side"><div class="leaf">🌱</div><strong data-i18n="home.sideTitle">Har bir kilogramm muhim!</strong><span data-i18n="home.sideText">Chiqindini saralang, shaxsiy 8 xonali ID orqali bonusingizni hisobingizga o‘tkazing.</span></div>
 </div>
 <div class="notice warning-status" id="accountRestrictionNotice" hidden></div>
 <div class="stats">
-<div class="stat-card"><div class="stat-icon">♻️</div><div><strong id="totalKg">0 kg</strong><span>Topshirilgan chiqindi</span></div></div>
-<div class="stat-card"><div class="stat-icon">🎁</div><div><strong id="earnedValue">0</strong><span>Jami ishlangan so‘m</span></div></div>
-<div class="stat-card"><div class="stat-icon">📦</div><div><strong id="depositCount">0</strong><span>Topshirishlar soni</span></div></div>
+<div class="stat-card"><div class="stat-icon">♻️</div><div><strong id="totalKg">0 kg</strong><span data-i18n="stat.kg">Topshirilgan chiqindi</span></div></div>
+<div class="stat-card"><div class="stat-icon">🎁</div><div><strong id="earnedValue">0</strong><span data-i18n="stat.earned">Jami ishlangan so‘m</span></div></div>
+<div class="stat-card"><div class="stat-icon">📦</div><div><strong id="depositCount">0</strong><span data-i18n="stat.count">Topshirishlar soni</span></div></div>
 </div>
-<div class="section-head"><h2>Bonus qanday hisoblanadi?</h2><button class="text-btn" data-page="shop">Bonuslardan foydalanish</button></div>
-<div class="rate-card"><div><strong>1 kg = 200 so‘m</strong><br/><span>Bonus faqat tekshiruvdan o‘tgan, toza organik chiqindi uchun hisoblanadi.</span></div><div style="font-size:34px">💚</div></div>
-<div class="section-head"><h2>Ekologik maqsadimiz</h2><button class="text-btn" data-page="eco">Batafsil →</button></div>
-<div class="grid-two"><div class="card info-card"><div class="big-emoji">🌍</div><h3>Toza mahalla</h3><p>Organik chiqindilarni umumiy axlatdan ajratib, qayta ishlashga yo‘naltiramiz.</p></div><div class="card info-card"><div class="big-emoji">🌾</div><h3>Foydali resurs</h3><p>Chiqindidan kompost va maxsus markazda biogaz olishga hissa qo‘shamiz.</p></div></div>
-<div class="section-head"><h2>So‘nggi harakatlar</h2><button class="text-btn" data-page="history">Barchasi →</button></div>
+
+<div class="section-head"><h2 data-i18n="home.goalTitle">Ekologik maqsadimiz</h2><button class="text-btn" data-page="eco" type="button" data-i18n="home.more">Batafsil →</button></div>
+<div class="goal-grid">
+<article class="goal-card goal-tariff">
+<span class="goal-badge" data-i18n="tariff.badge">RASMIY TARIF</span>
+<h3 class="goal-rate" data-i18n="tariff.rate">1 kg = 200 so‘m</h3>
+<p class="goal-lead" data-i18n="tariff.text">Faqatgina chiriydigan toza organik chiqindilar (oshxona meva-sabzavot qoldiqlari, ozuqa qoldiqlari) uchun to‘lanadi.</p>
+<ul class="rule-list">
+<li class="ok"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg><span data-i18n="tariff.ok1">Meva va sabzavot po‘choqlari</span></li>
+<li class="ok"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m8 12 3 3 5-6"></path></svg><span data-i18n="tariff.ok2">Non va o‘simlik asosli oziq-ovqat</span></li>
+<li class="no"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m9 9 6 6M15 9l-6 6"></path></svg><span data-i18n="tariff.no">Polietilen, shisha, metall qat’iyan taqiqlanadi</span></li>
+</ul>
+<div class="goal-note"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 4c-8 0-13 3-13 9a5 5 0 0 0 5 5c6 0 8-7 8-14Z"></path><path d="M4 21c2-5 6-8 11-11"></path></svg><span data-i18n="tariff.note">Toza saralash — sizning bonuslaringiz xavfsizligi va uzluksiz to‘lovlar kafolatidir.</span></div>
+</article>
+<article class="goal-card">
+<div class="goal-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 21h18"></path><path d="M5 21V10l6-4v15"></path><path d="M11 21V4h8v17"></path><path d="M14 8h2M14 12h2M14 16h2M7.5 13h1M7.5 17h1"></path></svg></div>
+<div class="goal-tag" data-i18n="goal1.tag">TABIIY MUHIT</div>
+<h3 data-i18n="goal1.title">Toza mahalla dasturi</h3>
+<p data-i18n="goal1.text">Chiqindilarni manbada saralash orqali mahallamizdagi noxush hidlar va noqonuniy chiqindixonalar paydo bo‘lishining oldi olinadi.</p>
+<div class="goal-foot"><div class="avatar-stack"><span>UZ</span><span>BIO</span><span class="more">+24</span></div><small data-i18n="goal1.homes">1 420 xonadon faol</small></div>
+</article>
+<article class="goal-card">
+<div class="goal-icon bright"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M19 5c-7 0-12 2.5-12 8a5 5 0 0 0 5 5c5.5 0 7-6 7-13Z"></path><path d="m13 9-2.5 3.5H14L11.5 16"></path></svg></div>
+<div class="goal-tag" data-i18n="goal2.tag">AYLANMA IQTISODIYOT</div>
+<h3 data-i18n="goal2.title">Kompost va Biogaz</h3>
+<p data-i18n="goal2.text">Siz topshirgan organik moddalar maxsus bio-reaktorlarda qayta ishlanib, qishloq xo‘jaligi uchun kompost hamda toza energiya beradi.</p>
+<div class="goal-foot"><span class="compost-pill">♻️ <span id="compostPill">0 kg chiqindi = 0 kg organik kompost</span></span></div>
+</article>
+</div>
+
+<div class="eco-impact">
+<span class="eco-pill"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-8"></path><path d="M15 7h6v6"></path></svg><span data-i18n="eco.pill">EKO-SAMARADORLIK</span></span>
+<h2 data-i18n="eco.title">Ekologik Statistika va Ta'sir</h2>
+<p class="eco-sub" data-i18n="eco.sub">Siz topshirgan har bir kilogramm organik chiqindining tabiatga keltirgan taxminiy foydasi.</p>
+<div class="eco-impact-grid"></div>
+</div>
+
+<div class="section-head"><h2 data-i18n="home.recentTitle">So‘nggi harakatlar</h2><button class="text-btn" data-page="history" type="button" data-i18n="home.all">Barchasi →</button></div>
 <div class="card" id="homeRecent"></div>
-<div class="footer-note">«Chiqindini topshir — tabiatni asra, bonusni ol!» 🌱<br/>Demo ilova: ma’lumotlar shu brauzerda saqlanadi.</div>
 </section>
+
+<!-- ============ TARIX ============ -->
 <section class="screen" id="screen-history">
-<div class="page-title"><div class="page-head-top"><button class="back-btn" data-back="">← Ortga qaytish</button></div><div class="eyebrow">Faolligingiz</div><h1>Chiqindi tarixi</h1><p>Topshirgan chiqindilaringiz, mukofotlar va kartaga chiqarish so‘rovlari.</p></div>
+<div class="page-title"><div class="page-head-top"><button class="back-btn" data-back="" type="button" data-i18n="common.back">← Ortga qaytish</button></div><div class="eyebrow" data-i18n="history.eyebrow">Faolligingiz</div><h1 data-i18n="history.title">Chiqindi tarixi</h1><p data-i18n="history.sub">Topshirgan chiqindilaringiz, mukofotlar va kartaga chiqarish so‘rovlari.</p></div>
 <div class="card"><div class="history-list" id="historyList"></div></div>
 </section>
+
+<!-- ============ OGOHLANTIRISHLAR ============ -->
 <section class="screen" id="screen-warnings">
-<div class="page-title"><div class="page-head-top"><button class="back-btn" data-back="">← Ortga qaytish</button></div><div class="eyebrow">Akkauntingiz xavfsizligi</div><h1>Ogohlantirishlarim <span class="warning-title-count" id="warningTotalCount">0</span></h1><p>Avtomat begona yoki chirib ketmaydigan materialni aniqlasa, ogohlantirish shu yerga yuboriladi.</p></div>
+<div class="page-title"><div class="page-head-top"><button class="back-btn" data-back="" type="button" data-i18n="common.back">← Ortga qaytish</button></div><div class="eyebrow" data-i18n="warn.eyebrow">Akkauntingiz xavfsizligi</div><h1><span data-i18n="warn.h1">Ogohlantirishlarim</span> <span class="warning-title-count" id="warningTotalCount">0</span></h1><p data-i18n="warn.sub">Avtomat begona yoki chirib ketmaydigan materialni aniqlasa, ogohlantirish shu yerga yuboriladi.</p></div>
 <div class="restriction-card" id="warningBlockStatus"></div>
-<div class="card warning-card"><div class="section-head" style="margin:0 0 12px"><h2>Ogohlantirishlar tarixi</h2><button class="text-btn" id="markWarningsRead" type="button">O‘qilgan deb belgilash</button></div><div id="warningsList" class="warnings-list"></div></div>
-<div class="notice info"><strong>Bloklash tartibi</strong>Birinchi holatda ogohlantirish beriladi. Ikkinchi holatda bonus olish 3 kunga to‘xtatiladi. 3 kunlik blokdan keyingi navbatdagi holatda ogohlantirish beriladi; yana takrorlansa 7 kunlik blok qo‘llanadi. Blok paytida avval yig‘ilgan balansingiz saqlanadi, lekin uni bonus do‘konida ishlatish yoki kartaga chiqarish mumkin emas. Blok muddati tugagach balansingizdan yana foydalanishingiz mumkin. Toza organik chiqindi topshirilsa ham blok vaqtida yangi bonus qo‘shilmaydi.</div>
-<div class="card demo-test-card"><details><summary>Avtomat tekshiruvini sinash (faqat demo)</summary><p class="muted">Bu boshqaruv faqat ilova ichidagi sinov uchun. Haqiqiy rentgen/AI kamera ulanmagan. Sinov natijasi tanlangach, foydalanuvchi ID sini kiritib, ogohlantirish oqimini tekshirishi mumkin.</p><div class="field"><label for="homeDemoScanType">Sinov natijasi</label><select id="homeDemoScanType"><option value="organic">Toza organik chiqindi</option><option value="plastic">Plastik</option><option value="metal">Metall / temir</option><option value="stone">Tosh</option><option value="bottle">Bakalashka</option><option value="glass">Shisha</option></select></div><button class="btn btn-green" id="openKioskDemo" type="button">Demo avtomatni ochish</button></details></div>
+<div class="card warning-card"><div class="section-head" style="margin:0 0 12px"><h2 data-i18n="warn.listTitle">Ogohlantirishlar tarixi</h2><button class="text-btn" id="markWarningsRead" type="button" data-i18n="warn.markRead">O‘qilgan deb belgilash</button></div><div class="warnings-list" id="warningsList"></div></div>
+<div class="notice info"><strong data-i18n="warn.rulesTitle">Bloklash tartibi</strong><span data-i18n="warn.rulesText">1) Begona chiqindi birinchi marta aniqlansa — faqat ogohlantirish beriladi.<br/>2) Ogohlantirishdan keyingi topshirishda ham (oraliqda toza chiqindi topshirilmagan bo‘lsa) begona chiqindi aniqlansa — bonus olish bloklanadi: birinchi blok 3 kun, keyingi bloklar 7 kun.<br/>3) Ogohlantirishdan keyin toza organik chiqindi topshirsangiz, holat tiklanadi: keyinroq tasodifan begona narsa o‘tib ketsa, yana faqat ogohlantirish beriladi.<br/>4) Blok tugagach ham holat yangidan boshlanadi.<br/>Blok paytida balansingiz saqlanadi, lekin bonus do‘koni va kartaga chiqarish yopiq bo‘ladi. Toza chiqindi qabul qilinadi, ammo blok davrida yangi bonus qo‘shilmaydi.</span></div>
+<div class="card demo-test-card"><details><summary data-i18n="demo.summary">Avtomat tekshiruvini sinash (faqat demo)</summary><p class="muted" data-i18n="demo.text">Bu boshqaruv faqat ilova ichidagi sinov uchun. Haqiqiy rentgen/AI kamera ulanmagan. Sinov natijasi tanlangach, foydalanuvchi ID sini kiritib, ogohlantirish oqimini tekshirishi mumkin.</p><div class="field"><label for="homeDemoScanType" data-i18n="demo.label">Sinov natijasi</label><select id="homeDemoScanType"><option value="organic" data-i18n="opt.organic">Toza organik chiqindi</option><option value="plastic" data-i18n="opt.plastic">Plastik</option><option value="metal" data-i18n="opt.metal">Metall / temir</option><option value="stone" data-i18n="opt.stone">Tosh</option><option value="bottle" data-i18n="opt.bottle">Bakalashka</option><option value="glass" data-i18n="opt.glass">Shisha</option></select></div><button class="btn btn-green" id="openKioskDemo" type="button" data-i18n="demo.open">Demo avtomatni ochish</button></details></div>
 </section>
+
+<!-- ============ BONUS DO‘KONI ============ -->
 <section class="screen" id="screen-shop">
-<div class="page-title"><div class="page-head-top"><button class="back-btn" data-back="">← Ortga qaytish</button></div><div class="eyebrow">Yig‘ing va foydalaning</div><h1>Bonus do‘koni 🎁</h1><p>Jamg‘argan bonuslaringizni foydali mukofotlarga almashtiring.</p></div>
-<div class="rate-card" style="margin-bottom:17px"><div><span>Hozirgi balansingiz</span><br/><strong><span id="shopBalance">0</span> so‘m</strong></div><div style="font-size:32px">💳</div></div>
+<div class="page-title"><div class="page-head-top"><button class="back-btn" data-back="" type="button" data-i18n="common.back">← Ortga qaytish</button></div><div class="eyebrow" data-i18n="shop.eyebrow">Yig‘ing va foydalaning</div><h1 data-i18n="shop.title">Bonus do‘koni 🎁</h1><p data-i18n="shop.sub">Jamg‘argan bonuslaringizni foydali mukofotlarga almashtiring.</p></div>
+<div class="rate-card" style="margin-bottom:17px"><div><span data-i18n="shop.balance">Hozirgi balansingiz</span><br/><strong><span id="shopBalance">0</span> <span data-i18n="cur">so‘m</span></strong></div><div style="font-size:32px">💳</div></div>
 <div class="notice warning-status" id="shopBlockNotice" hidden></div>
 <div class="shop-grid" id="shopGrid"></div>
-<div class="notice"><strong>Diqqat!</strong> Mukofotlar demo namuna. Haqiqiy kommunal chegirma yoki do‘kon kuponlari hamkor tashkilotlar bilan kelishuvdan keyin faollashtiriladi.</div>
+<div class="notice"><strong data-i18n="shop.noticeTitle">Diqqat!</strong><span data-i18n="shop.noticeText">Mukofotlar demo namuna. Haqiqiy kommunal chegirma yoki do‘kon kuponlari hamkor tashkilotlar bilan kelishuvdan keyin faollashtiriladi.</span></div>
 </section>
+
+<!-- ============ XARITA ============ -->
 <section class="screen" id="screen-map">
-<div class="page-title"><div class="page-head-top"><button class="back-btn" data-back="">← Ortga qaytish</button></div><div class="eyebrow">Topshirish nuqtalari</div><h1>Avtomatlar xaritasi 📍</h1><p>Eng yaqin BIO-BONUS qurilmasini toping.</p></div>
-<div class="map-placeholder"><div class="map-inner"><div class="map-pin">📍</div><h3>Avtomat manzillari kiritilmagan</h3><p>Bu demo versiyada haqiqiy BIO-BONUS avtomatlari hali o‘rnatilmagan. Qurilmalar ishga tushirilganda tasdiqlangan manzillar shu yerda ko‘rinadi.</p></div></div>
-<div class="notice"><strong>Keyingi bosqich</strong> Har bir avtomatga alohida kod va koordinata biriktiriladi. Shunda ilova xaritada yo‘l ko‘rsatishi mumkin.</div>
+<div class="page-title"><div class="page-head-top"><button class="back-btn" data-back="" type="button" data-i18n="common.back">← Ortga qaytish</button></div><div class="eyebrow" data-i18n="map.eyebrow">Topshirish nuqtalari</div><h1 data-i18n="map.title">Avtomatlar xaritasi 📍</h1><p data-i18n="map.sub">Eng yaqin BIO-BONUS qurilmasini toping.</p></div>
+<div class="map-placeholder"><div class="map-inner"><div class="map-pin">📍</div><h3 data-i18n="map.h3">Avtomat manzillari kiritilmagan</h3><p data-i18n="map.p">Bu demo versiyada haqiqiy BIO-BONUS avtomatlari hali o‘rnatilmagan. Qurilmalar ishga tushirilganda tasdiqlangan manzillar shu yerda ko‘rinadi.</p></div></div>
+<div class="notice"><strong data-i18n="map.nextTitle">Keyingi bosqich</strong><span data-i18n="map.nextText">Har bir avtomatga alohida kod va koordinata biriktiriladi. Shunda ilova xaritada yo‘l ko‘rsatishi mumkin.</span></div>
 </section>
+
+<!-- ============ REYTING ============ -->
 <section class="screen" id="screen-rating">
-<div class="page-title"><div class="page-head-top"><button class="back-btn" data-back="">← Ortga qaytish</button></div><div class="eyebrow">Yashil musobaqa</div><h1>Reyting 🏆</h1><p>Ushbu qurilmada yaratilgan demo akkauntlar natijasi.</p></div>
-<div class="card" style="margin-bottom:14px"><div class="section-head" style="margin:0 0 10px"><h2>Mening natijam</h2><span class="pill">Shaxsiy akkaunt</span></div><div class="stats" style="margin:0"><div><strong id="ratingKg">0 kg</strong><div class="muted" style="font-size:11px">Chiqindi</div></div><div><strong id="ratingSum">0 so‘m</strong><div class="muted" style="font-size:11px">Bonus</div></div><div><strong id="ratingCount">0</strong><div class="muted" style="font-size:11px">Topshirish</div></div></div></div>
-<div class="card"><h3 style="margin:0 0 10px">Demo akkauntlar reytingi</h3><div id="localRanking"></div></div>
-<div class="notice info"><strong>Haqiqiy reyting haqida</strong> Bu reyting faqat shu brauzerda yaratilgan test akkauntlarini ko‘rsatadi. Barcha mahallalar bo‘yicha umumiy reyting uchun markaziy server kerak.</div>
+<div class="page-title"><div class="page-head-top"><button class="back-btn" data-back="" type="button" data-i18n="common.back">← Ortga qaytish</button></div><div class="eyebrow" data-i18n="rating.eyebrow">Yashil musobaqa</div><h1 data-i18n="rating.title">Reyting 🏆</h1><p data-i18n="rating.sub">Eng ko‘p organik chiqindi topshirgan ishtirokchilar.</p></div>
+<div class="card leader-card">
+<div class="leader-head"><h2 data-i18n="rating.top">Yetakchilar (Top-10)</h2><span data-i18n="rating.byKg">Topshirilgan kg bo‘yicha</span></div>
+<div class="leader-list" id="localRanking"></div>
+</div>
+<div class="notice info"><strong data-i18n="rating.noteTitle">Reyting haqida</strong><span data-i18n="rating.note">Ro‘yxatda shu qurilmadagi akkauntlar va namuna (demo) ishtirokchilar ko‘rsatilgan. Barcha mahallalar bo‘yicha umumiy reyting uchun markaziy server kerak.</span></div>
 </section>
+
+<!-- ============ EKOSTATISTIKA ============ -->
 <section class="screen" id="screen-eco">
-<div class="page-title"><div class="page-head-top"><button class="back-btn" data-back="">← Ortga qaytish</button></div><div class="eyebrow">Tabiatga qo‘shgan hissangiz</div><h1>Ekostatistika 🌎</h1><p>Ushbu brauzerda qayd etilgan ekologik natijalar.</p></div>
-<div class="stats"><div class="stat-card"><div class="stat-icon">♻️</div><div><strong id="ecoKg">0 kg</strong><span>Yig‘ilgan organik chiqindi</span></div></div><div class="stat-card"><div class="stat-icon">🎁</div><div><strong id="ecoBonus">0</strong><span>Hisoblangan bonus (so‘m)</span></div></div><div class="stat-card"><div class="stat-icon">📅</div><div><strong id="ecoActions">0</strong><span>Topshirishlar soni</span></div></div></div>
-<div class="card info-card"><div class="big-emoji">🌱</div><h3>Nega organik chiqindini ajratamiz?</h3><p>To‘g‘ri saralangan organik chiqindi kompostlash yoki anaerob qayta ishlashga yuborilishi mumkin. Bu resurslardan qayta foydalanish va chiqindixonaga tushadigan chiqindini kamaytirishga yordam beradi.</p></div>
-<div class="notice"><strong>Hisob-kitob haqida</strong> Bu sahifadagi raqamlar faqat demo topshirishlarni ko‘rsatadi. Ular real qayta ishlangan massa yoki kamaytirilgan gaz miqdori degani emas.</div>
+<div class="page-title"><div class="page-head-top"><button class="back-btn" data-back="" type="button" data-i18n="common.back">← Ortga qaytish</button></div><div class="eyebrow" data-i18n="ecoPage.eyebrow">Tabiatga qo‘shgan hissangiz</div><h1 data-i18n="ecoPage.title">Ekostatistika 🌎</h1><p data-i18n="ecoPage.sub">Ushbu brauzerda qayd etilgan ekologik natijalar.</p></div>
+<div class="eco-impact eco-impact-page">
+<span class="eco-pill"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m3 17 6-6 4 4 8-8"></path><path d="M15 7h6v6"></path></svg><span data-i18n="eco.pill">EKO-SAMARADORLIK</span></span>
+<h2 data-i18n="eco.title">Ekologik Statistika va Ta'sir</h2>
+<p class="eco-sub" data-i18n="eco.sub">Siz topshirgan har bir kilogramm organik chiqindining tabiatga keltirgan taxminiy foydasi.</p>
+<div class="eco-impact-grid"></div>
+</div>
+<div class="card info-card" style="margin-top:16px"><div class="big-emoji">🌱</div><h3 data-i18n="ecoPage.whyTitle">Nega organik chiqindini ajratamiz?</h3><p data-i18n="ecoPage.whyText">To‘g‘ri saralangan organik chiqindi kompostlash yoki anaerob qayta ishlashga yuborilishi mumkin. Bu resurslardan qayta foydalanish va chiqindixonaga tushadigan chiqindini kamaytirishga yordam beradi.</p></div>
+<div class="notice"><strong data-i18n="ecoPage.noteTitle">Hisob-kitob haqida</strong><span data-i18n="eco.note">Raqamlar taxminiy koeffitsiyentlar asosida hisoblanadi: 1 kg organik chiqindi ≈ 0,3 kg kompost, ≈ 0,8 kg CO₂ ekvivalenti, ≈ 0,225 kVt·soat biogaz energiyasi. Bu real o‘lchov natijasi emas.</span></div>
 </section>
+
+<!-- ============ PROFIL ============ -->
 <section class="screen" id="screen-account">
-<div class="page-title"><div class="page-head-top"><button class="back-btn" data-back="">← Ortga qaytish</button></div><div class="eyebrow">Shaxsiy ma’lumotlar</div><h1>Mening hisobim 👤</h1><p>Shaxsiy ID, profilingiz va bonus hisobingizni boshqaring.</p></div>
+<div class="page-title"><div class="page-head-top"><button class="back-btn" data-back="" type="button" data-i18n="common.back">← Ortga qaytish</button></div><div class="eyebrow" data-i18n="acc.eyebrow">Shaxsiy ma’lumotlar</div><h1 data-i18n="acc.title">Mening hisobim 👤</h1><p data-i18n="acc.sub">Shaxsiy ID, profilingiz va bonus hisobingizni boshqaring.</p></div>
 <div class="card">
-<div class="id-panel"><div><div class="id-label">SIZNING 8 XONALI AKKAUNT ID</div><div class="id-value" id="accountIdValue">00000000</div><div class="id-hint">Avtomat ekraniga shu ID raqamini kiriting.</div></div><div class="id-actions"><button class="mini-action" id="copyAccountId">ID nusxalash</button></div></div>
-<form class="profile-form" id="profileForm"><div class="field"><label for="profileName">Ismingiz</label><input autocomplete="name" id="profileName" maxlength="35" placeholder="Ismingizni kiriting" required=""/></div><button class="btn btn-green" type="submit">Profilni saqlash</button></form>
+<div class="id-panel"><div><div class="id-label" data-i18n="acc.idLabel">SIZNING 8 XONALI AKKAUNT ID</div><div class="id-value" id="accountIdValue">00000000</div><div class="id-hint" data-i18n="acc.idHint">Avtomat ekraniga shu ID raqamini kiriting.</div></div><div class="id-actions"><button class="mini-action" id="copyAccountId" type="button" data-i18n="acc.copy">ID nusxalash</button></div></div>
+<div class="guarantee-panel">
+<div class="guarantee-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6l-7-3Z"></path></svg></div>
+<div class="guarantee-text"><strong data-i18n="guar.title">Balans kafolati va daxlsizligi:</strong><span id="guaranteeText"></span></div>
+<button class="guarantee-btn" id="showCardStatus" type="button" data-i18n="guar.btn">Karta holatini ko‘rish</button>
+</div>
+<form class="profile-form" id="profileForm"><div class="field"><label for="profileName" data-i18n="acc.nameLabel">Ismingiz</label><input autocomplete="name" id="profileName" maxlength="35" placeholder="Ismingizni kiriting" data-i18n-ph="acc.namePh" required/></div><button class="btn btn-green" type="submit" data-i18n="acc.save">Profilni saqlash</button></form>
 </div>
 <div class="account-grid" style="margin-top:14px">
-<div class="card account-card"><h3>Demo akkauntlarni boshqarish</h3><p>Har bir foydalanuvchi uchun alohida 8 xonali ID yaratiladi. Sinov uchun shu qurilmada bir nechta akkaunt ochib ko‘rishingiz mumkin.</p><div class="field"><label for="accountSelect">Akkauntni almashtirish</label><select id="accountSelect"></select></div><div class="account-tools"><button class="btn btn-soft" id="newAccountBtn">＋ Yangi akkaunt</button></div></div>
-<div class="card account-card"><h3>Plastik karta (demo)</h3><p>Haqiqiy karta raqamini kiritmang. Sinov uchun faqat soxta raqam ishlaydi: <strong>0000 0000 0000 0000</strong>. Bu bank kartasi emas.</p><form id="cardForm"><div class="field"><label for="cardNumberDemo">16 xonali demo karta raqami</label><input aria-describedby="cardDemoHelp" autocomplete="off" id="cardNumberDemo" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" required="" type="text"/></div><div class="id-hint" id="cardDemoHelp">16 ta nol kiritilganda demo karta egasi ko‘rsatiladi. Haqiqiy karta egasining F.I.Sh.ini faqat bank/to‘lov provayderi API orqali tasdiqlash mumkin.</div><div class="card-owner" hidden="" id="cardOwnerPanel">DEMO FOYDALANUVCHI<small>Karta egasi (sinov ma’lumoti, bank tomonidan tasdiqlanmagan)</small></div><button class="btn btn-green" type="submit">Demo kartani bog‘lash</button><div class="id-hint" id="cardStatus" style="margin-top:9px"></div></form></div>
+<div class="card account-card"><h3 data-i18n="acc.manageTitle">Demo akkauntlarni boshqarish</h3><p data-i18n="acc.manageText">Har bir foydalanuvchi uchun alohida 8 xonali ID yaratiladi. Sinov uchun shu qurilmada bir nechta akkaunt ochib ko‘rishingiz mumkin.</p><div class="field"><label for="accountSelect" data-i18n="acc.switch">Akkauntni almashtirish</label><select id="accountSelect"></select></div><div class="account-tools"><button class="btn btn-soft" id="newAccountBtn" type="button" data-i18n="acc.new">＋ Yangi akkaunt</button></div></div>
+<div class="card account-card" id="cardStatusCard"><h3 data-i18n="cardst.title">Karta holati</h3><p data-i18n="cardst.text">Mablag‘ faqat UZCARD va HUMO kartalariga chiqariladi (demo). Karta raqami to‘liq saqlanmaydi — faqat oxirgi 4 raqami.</p><div class="card-status-box" id="cardStatusBox"></div><button class="btn btn-green" id="cardStatusWithdraw" type="button" data-i18n="cardst.withdraw">💳 Mablag‘ni chiqarish</button></div>
 </div>
-<div class="card" style="margin-top:14px"><h3 style="margin:0 0 7px">Ma’lumotlar</h3><p class="muted" style="font-size:12px;line-height:1.5">Demo ma’lumotlar ushbu brauzer xotirasida saqlanadi. Boshqa telefon yoki kompyuterga avtomatik ko‘chmaydi.</p><div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:14px"><button class="btn btn-soft" id="exportData">Ma’lumotni yuklab olish</button><button class="btn btn-danger" id="resetData">Demo ma’lumotni tozalash</button></div></div>
-<div class="notice info"><strong>Haqiqiy tizim uchun</strong> 8 xonali ID serverda yagona qilib beriladi. Avtomat tarozisi, server, bank/to‘lov provayderi va karta xavfsizligi integratsiyasi kerak. Hozirgi kartaga chiqarish faqat demo so‘rovidir — haqiqiy pul o‘tkazilmaydi.</div>
+<div class="card" style="margin-top:14px"><h3 style="margin:0 0 7px" data-i18n="data.title">Ma’lumotlar</h3><p class="muted" style="font-size:12px;line-height:1.5" data-i18n="data.text">Demo ma’lumotlar ushbu brauzer xotirasida saqlanadi. Boshqa telefon yoki kompyuterga avtomatik ko‘chmaydi.</p><div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:14px"><button class="btn btn-soft" id="exportData" type="button" data-i18n="data.export">Ma’lumotni yuklab olish</button><button class="btn btn-danger" id="resetData" type="button" data-i18n="data.reset">Demo ma’lumotni tozalash</button></div></div>
+<div class="notice info"><strong data-i18n="acc.realTitle">Haqiqiy tizim uchun</strong><span data-i18n="acc.realText">8 xonali ID serverda yagona qilib beriladi. Avtomat tarozisi, server, bank/to‘lov provayderi va karta xavfsizligi integratsiyasi kerak. Hozirgi kartaga chiqarish faqat demo so‘rovidir — haqiqiy pul o‘tkazilmaydi.</span></div>
 </section>
 </main>
-<nav aria-label="Asosiy menyu" class="bottom-nav"><div class="nav-inner">
-<button class="nav-item active" data-page="home" data-tooltip="Bosh sahifa"><span class="nav-icon">⌂</span><span>Bosh sahifa</span></button>
-<button class="nav-item" data-page="warnings" data-tooltip="Ogohlantirishlarim"><span class="nav-icon">🔔</span><span>Ogohlantirish</span><span class="nav-badge" id="warningBadge" hidden>0</span></button>
-<button class="nav-item" data-page="history" data-tooltip="Chiqindi tarixi"><span class="nav-icon">↺</span><span>Tarix</span></button>
-<button class="nav-item" data-page="shop" data-tooltip="Bonus do‘koni"><span class="nav-icon">🎁</span><span>Bonuslar</span></button>
-<button class="nav-item" data-page="map" data-tooltip="Avtomatlar xaritasi"><span class="nav-icon">⌖</span><span>Xarita</span></button>
-<button class="nav-item" data-page="rating" data-tooltip="Ekologik reyting"><span class="nav-icon">🏆</span><span>Reyting</span></button>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+<div class="footer-inner">
+<div class="footer-brand"><span class="footer-logo"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 4c-8 0-13 3-13 9a5 5 0 0 0 5 5c6 0 8-7 8-14Z"></path><path d="M4 21c2-5 6-8 11-11"></path></svg></span><div><strong data-i18n="footer.title">BIO-BONUS Milliy Ekologik Dasturi</strong><span data-i18n="footer.sub">Tabiiy resurslarni asrash va rag‘batlantiruvchi chiqindilarni saralash tizimi</span></div></div>
+<nav class="footer-links" aria-label="Footer"><button data-info="rules" type="button" data-i18n="footer.rules">Qoidalar va Zanjir</button><button data-info="privacy" type="button" data-i18n="footer.privacy">Maxfiylik siyosati</button><button data-info="help" type="button" data-i18n="footer.help">Aloqa &amp; Yordam</button></nav>
+<div class="footer-copy">© <span id="footerYear">2026</span> BIO-BONUS. <span data-i18n="footer.copy">Barcha huquqlar himoyalangan.</span></div>
+</div>
+<div class="footer-demo" data-i18n="footer.demo">Demo ilova: ma’lumotlar shu brauzerda saqlanadi.</div>
+</footer>
+
+<nav aria-label="Asosiy menyu" data-i18n-aria="nav.aria" class="bottom-nav"><div class="nav-inner">
+<button class="nav-item active" data-page="home" data-tooltip="Bosh sahifa" data-i18n-tip="nav.home.tip" type="button"><span class="nav-icon">⌂</span><span data-i18n="nav.home">Bosh sahifa</span></button>
+<button class="nav-item" data-page="warnings" data-tooltip="Ogohlantirishlarim" data-i18n-tip="nav.warn.tip" type="button"><span class="nav-icon">🔔</span><span data-i18n="nav.warn">Ogohlantirish</span><span class="nav-badge" hidden id="warningBadge">0</span></button>
+<button class="nav-item" data-page="history" data-tooltip="Chiqindi tarixi" data-i18n-tip="nav.history.tip" type="button"><span class="nav-icon">↺</span><span data-i18n="nav.history">Tarix</span></button>
+<button class="nav-item" data-page="shop" data-tooltip="Bonus do‘koni" data-i18n-tip="nav.shop.tip" type="button"><span class="nav-icon">🎁</span><span data-i18n="nav.shop">Bonuslar</span></button>
+<button class="nav-item" data-page="map" data-tooltip="Avtomatlar xaritasi" data-i18n-tip="nav.map.tip" type="button"><span class="nav-icon">⌖</span><span data-i18n="nav.map">Xarita</span></button>
+<button class="nav-item" data-page="rating" data-tooltip="Ekologik reyting" data-i18n-tip="nav.rating.tip" type="button"><span class="nav-icon">🏆</span><span data-i18n="nav.rating">Reyting</span></button>
 </div></nav>
 </div>
+
+<!-- ============ ID / AVTOMAT OYNASI ============ -->
 <div aria-labelledby="kioskTitle" aria-modal="true" class="modal-backdrop" id="kioskModal" role="dialog"><div class="modal kiosk-id-modal">
-<div class="modal-head"><h2 id="kioskTitle">♻️ BIO-BONUS ID raqamingiz</h2><button aria-label="Yopish" class="close" data-close="kioskModal" type="button">×</button></div>
+<div class="modal-head"><h2 id="kioskTitle" data-i18n="kiosk.title">♻️ BIO-BONUS ID raqamingiz</h2><button aria-label="Yopish" data-i18n-aria="common.close" class="close" data-close="kioskModal" type="button">×</button></div>
 <section class="personal-id-panel" id="personalIdPanel">
-  <div class="personal-id-label">SIZNING 8 XONALI ID RAQAMINGIZ</div>
-  <div class="personal-id-number" id="kioskPersonalId">00000000</div>
-  <p>Shu ID raqamingizni BIO-BONUS apparatiga kiriting. Tasdiqlangan organik chiqindi uchun bonusingiz aynan sizning akkauntingizga tushadi.</p>
-  <div class="modal-actions"><button class="btn btn-soft" id="copyKioskPersonalId" type="button">ID raqamni nusxalash</button><button class="btn btn-green" data-close="kioskModal" type="button">Tushunarli</button></div>
+<div class="personal-id-label" data-i18n="kiosk.label">SIZNING 8 XONALI ID RAQAMINGIZ</div>
+<div class="personal-id-number" id="kioskPersonalId">00000000</div>
+<p data-i18n="kiosk.text">Shu ID raqamingizni BIO-BONUS apparatiga kiriting. Tasdiqlangan organik chiqindi uchun bonusingiz aynan sizning akkauntingizga tushadi.</p>
+<div class="modal-actions"><button class="btn btn-soft" id="copyKioskPersonalId" type="button" data-i18n="kiosk.copy">ID raqamni nusxalash</button><button class="btn btn-green" data-close="kioskModal" type="button" data-i18n="kiosk.ok">Tushunarli</button></div>
 </section>
-<section id="demoKioskPanel" hidden>
-  <div class="notice info" style="margin-top:0"><strong>Demo avtomat tekshiruvi</strong> Bu faqat sinov: haqiqiy rentgen kamera yoki tarozi ulanmagan.</div>
-  <form id="kioskForm">
-    <div class="field account-id-entry"><label for="kioskAccountId">8 xonali ID raqamingizni kiriting</label><input autocomplete="off" disabled id="kioskAccountId" inputmode="numeric" maxlength="8" minlength="8" pattern="[0-9]{8}" placeholder="Masalan: 58211508" required type="text"/><div class="id-hint" id="idLookup">Avtomat chiqindini tekshirib bo‘lgach, ID kiritish ochiladi.</div></div>
-    <div class="modal-actions"><button class="btn btn-soft" data-close="kioskModal" type="button">Bekor qilish</button><button class="btn btn-green" disabled id="creditBonusBtn" type="submit">ID ni tasdiqlash</button></div>
-  </form>
+<section hidden id="demoKioskPanel">
+<div class="notice info" style="margin-top:0"><strong data-i18n="kiosk.demoTitle">Demo avtomat tekshiruvi</strong><span data-i18n="kiosk.demoText">Bu faqat sinov: haqiqiy rentgen kamera yoki tarozi ulanmagan.</span></div>
+<form id="kioskForm">
+<div class="field account-id-entry"><label for="kioskAccountId" data-i18n="kiosk.idLabel">8 xonali ID raqamingizni kiriting</label><input autocomplete="off" disabled id="kioskAccountId" inputmode="numeric" maxlength="8" minlength="8" pattern="[0-9]{8}" placeholder="Masalan: 58211508" data-i18n-ph="kiosk.idPh" required type="text"/><div class="id-hint" id="idLookup"></div></div>
+<div class="modal-actions"><button class="btn btn-soft" data-close="kioskModal" type="button" data-i18n="common.cancel">Bekor qilish</button><button class="btn btn-green" disabled id="creditBonusBtn" type="submit" data-i18n="kiosk.confirm">ID ni tasdiqlash</button></div>
+</form>
 </section>
 </div></div>
-<div aria-labelledby="withdrawTitle" aria-modal="true" class="modal-backdrop" id="withdrawModal" role="dialog"><div class="modal">
-<div class="modal-head"><h2 id="withdrawTitle">💳 Kartaga chiqarish</h2><button aria-label="Yopish" class="close" data-close="withdrawModal" type="button">×</button></div>
-<div class="notice" style="margin-top:0"><strong>Demo rejimi</strong> Bu funksiya kartaga haqiqiy pul yubormaydi. Faqat pul yechish so‘rovini sinov tariqasida qayd etadi. Haqiqiy karta ma’lumotlarini kiritmang.</div>
-<div class="calc-box"><div><span>Demo bog‘langan karta</span><div class="withdraw-owner" id="withdrawCardOwner">Karta ulanmagan</div></div><strong id="withdrawCard">Ulanmagan</strong></div>
-<form id="withdrawForm"><div class="field"><label for="withdrawAmount">Chiqariladigan summa (so‘m)</label><input id="withdrawAmount" inputmode="numeric" min="100" placeholder="Masalan: 1000" required="" step="1" type="number"/><div class="id-hint">Summani balansingizdan oshirmang. Bu demo so‘rov — bankka pul yuborilmaydi.</div></div><div class="calc-box"><span>Hozirgi balans</span><strong id="withdrawBalance">0 so‘m</strong></div><div class="modal-actions"><button class="btn btn-soft" data-close="withdrawModal" type="button">Bekor qilish</button><button class="btn btn-green" type="submit">Demo so‘rov yaratish</button></div></form>
+
+<!-- ============ MABLAG‘NI CHIQARISH ============ -->
+<div aria-labelledby="withdrawTitle" aria-modal="true" class="modal-backdrop" id="withdrawModal" role="dialog"><div class="modal wd-modal">
+<div class="wd-head">
+<span class="wd-head-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><rect height="14" rx="3" width="18" x="3" y="5"></rect><path d="M21 10h-5a2 2 0 0 0 0 4h5"></path><circle cx="16.5" cy="12" r=".6"></circle></svg></span>
+<div><h2 id="withdrawTitle" data-i18n="wd.title">Mablag‘ni chiqarish (Demo)</h2><p data-i18n="wd.sub">O‘zbekiston milliy to‘lov tizimlariga 0% komissiya bilan</p></div>
+<button aria-label="Yopish" data-i18n-aria="common.close" class="close wd-close" data-close="withdrawModal" type="button">×</button>
+</div>
+<section id="withdrawFormPanel">
+<div class="wd-info"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6l-7-3Z"></path><path d="m9 12 2 2 4-4"></path></svg><div><strong data-i18n="wd.infoTitle">Interaktiv Demo Rejimi:</strong><span data-i18n="wd.infoText">Ushbu simulyator orqali to‘lov tizimini tanlash, kartani kiritish va kvitansiyani ko‘rish jarayonini bevosita sinab ko‘rishingiz mumkin. Haqiqiy pul o‘tkazilmaydi.</span></div></div>
+<form id="withdrawForm" novalidate>
+<div class="wd-label" data-i18n="wd.system">TO‘LOV TIZIMINI TANLANG:</div>
+<div class="wd-systems" role="radiogroup" aria-labelledby="withdrawTitle">
+<button aria-checked="true" class="wd-system active" data-system="uzcard" role="radio" type="button"><strong>UZCARD</strong><small>8600</small></button>
+<button aria-checked="false" class="wd-system" data-system="humo" role="radio" type="button"><strong>HUMO</strong><small>9860</small></button>
+</div>
+<label class="wd-label" for="wdCardNumber" id="wdCardLabel" data-i18n="wd.card">KARTA RAQAMI:</label>
+<div class="wd-input-wrap"><input autocomplete="off" id="wdCardNumber" inputmode="numeric" maxlength="19" placeholder="8600 0000 0000 0000" type="text"/><span class="wd-chip" id="wdCardChip">UZCARD</span></div>
+<div class="wd-label-row"><label class="wd-label" for="wdAmount" data-i18n="wd.amount">CHIQARILADIGAN SUMMA:</label><button class="wd-all" id="wdAll" type="button"></button></div>
+<div class="wd-input-wrap wd-amount-wrap"><input id="wdAmount" inputmode="numeric" placeholder="0" type="text"/><span class="wd-unit" data-i18n="cur">so‘m</span></div>
+<div class="wd-fee"><span data-i18n="wd.fee">Komissiya (BIO-BONUS subsidiya):</span><strong data-i18n="wd.feeVal">0 so‘m (Bepul)</strong></div>
+<div aria-live="polite" class="wd-error" id="wdError"></div>
+<button class="wd-submit" disabled id="wdSubmit" type="submit"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 12 20 4l-4 16-4-7-8-1Z"></path><path d="m12 13 8-9"></path></svg><span data-i18n="wd.submit">Kartaga chiqarishni tasdiqlash</span></button>
+</form>
+</section>
+<section hidden id="withdrawReceipt" class="wd-receipt">
+<div class="receipt-ok">✓</div>
+<h3 data-i18n="wd.receiptTitle">To‘lov kvitansiyasi (demo)</h3>
+<dl id="receiptList"></dl>
+<button class="wd-submit" data-close="withdrawModal" type="button"><span data-i18n="common.close">Yopish</span></button>
+</section>
 </div></div>
+
+<!-- ============ YANGI AKKAUNT ============ -->
 <div aria-labelledby="newAccountTitle" aria-modal="true" class="modal-backdrop" id="newAccountModal" role="dialog"><div class="modal">
-<div class="modal-head"><h2 id="newAccountTitle">＋ Yangi demo akkaunt</h2><button aria-label="Yopish" class="close" data-close="newAccountModal" type="button">×</button></div>
-<form id="newAccountForm"><div class="field"><label for="newAccountName">Foydalanuvchi ismi</label><input id="newAccountName" maxlength="35" placeholder="Ismni kiriting" required=""/></div><div class="notice info">Yangi akkaunt uchun takrorlanmaydigan 8 xonali demo ID yaratiladi.</div><div class="modal-actions"><button class="btn btn-soft" data-close="newAccountModal" type="button">Bekor qilish</button><button class="btn btn-green" type="submit">Akkaunt yaratish</button></div></form>
+<div class="modal-head"><h2 id="newAccountTitle" data-i18n="newacc.title">＋ Yangi demo akkaunt</h2><button aria-label="Yopish" data-i18n-aria="common.close" class="close" data-close="newAccountModal" type="button">×</button></div>
+<form id="newAccountForm"><div class="field"><label for="newAccountName" data-i18n="newacc.label">Foydalanuvchi ismi</label><input id="newAccountName" maxlength="35" placeholder="Ismni kiriting" data-i18n-ph="newacc.ph" required/></div><div class="notice info" data-i18n="newacc.note">Yangi akkaunt uchun takrorlanmaydigan 8 xonali demo ID yaratiladi.</div><div class="modal-actions"><button class="btn btn-soft" data-close="newAccountModal" type="button" data-i18n="common.cancel">Bekor qilish</button><button class="btn btn-green" type="submit" data-i18n="newacc.create">Akkaunt yaratish</button></div></form>
 </div></div>
-<div aria-labelledby="redeemTitle" aria-modal="true" class="modal-backdrop" id="redeemModal" role="dialog"><div class="modal"><div class="modal-head"><h2 id="redeemTitle">Mukofotni olish</h2><button aria-label="Yopish" class="close" data-close="redeemModal" type="button">×</button></div><p class="muted" id="redeemText" style="font-size:13px;line-height:1.5"></p><div class="calc-box"><span>Balansdan yechiladi</span><strong id="redeemCost">0 so‘m</strong></div><div class="modal-actions"><button class="btn btn-soft" data-close="redeemModal" type="button">Ortga</button><button class="btn btn-green" id="confirmRedeem" type="button">Tasdiqlash</button></div></div></div>
+
+<!-- ============ MUKOFOT ============ -->
+<div aria-labelledby="redeemTitle" aria-modal="true" class="modal-backdrop" id="redeemModal" role="dialog"><div class="modal"><div class="modal-head"><h2 id="redeemTitle" data-i18n="redeem.title">Mukofotni olish</h2><button aria-label="Yopish" data-i18n-aria="common.close" class="close" data-close="redeemModal" type="button">×</button></div><p class="muted" id="redeemText" style="font-size:13px;line-height:1.5"></p><div class="calc-box"><span data-i18n="redeem.cost">Balansdan yechiladi</span><strong id="redeemCost">0 so‘m</strong></div><div class="modal-actions"><button class="btn btn-soft" data-close="redeemModal" type="button" data-i18n="common.back2">Ortga</button><button class="btn btn-green" id="confirmRedeem" type="button" data-i18n="redeem.confirm">Tasdiqlash</button></div></div></div>
+
+<!-- ============ MA’LUMOT OYNASI (footer havolalari) ============ -->
+<div aria-labelledby="infoTitle" aria-modal="true" class="modal-backdrop" id="infoModal" role="dialog"><div class="modal"><div class="modal-head"><h2 id="infoTitle"></h2><button aria-label="Yopish" data-i18n-aria="common.close" class="close" data-close="infoModal" type="button">×</button></div><div class="info-body" id="infoBody"></div><div class="modal-actions"><button class="btn btn-green" data-close="infoModal" type="button" data-i18n="kiosk.ok">Tushunarli</button></div></div></div>
+
 <div aria-live="polite" class="toast" id="toast" role="status"></div>
 
-<script defer="True" src="./app.js"></script><script defer="True" src="./pwa.js"></script></body>
+<script defer src="./i18n.js"></script>
+<script defer src="./app.js"></script>
+<script defer src="./pwa.js"></script>
+</body>
 </html>

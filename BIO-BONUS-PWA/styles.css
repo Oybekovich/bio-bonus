@@ -87,3 +87,187 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .personal-id-panel p{max-width:340px;margin:12px auto 3px;color:#52695d;font-size:13px;line-height:1.55}
 .lock-inline-hint{display:block;flex-basis:100%;font-size:11px;color:#ffe6d7;font-weight:800;padding:0 4px}
 .lock-inline-hint[hidden]{display:none}
+
+/* =====================================================================
+   v2: til tanlash, maqsad kartalari, eko-ta’sir, balans kafolati,
+   UZCARD/HUMO chiqarish oynasi, Top-10 reyting va footer
+   ===================================================================== */
+:root{--deep:#0a4a2e;--deep2:#0d5c38;--mint-a:#dcfce7;--mint-b:#c6f6d5;--mint-c:#86efac;--mint-d:#bbf7d0;--leaf:#15803d}
+.app{padding-bottom:0}
+body{padding-bottom:calc(86px + env(safe-area-inset-bottom))}
+
+/* Til tanlash */
+.lang-switch{display:inline-flex;padding:3px;border:1px solid var(--line);border-radius:999px;background:#f4faf6;gap:2px}
+.lang-btn{border:0;background:none;color:#5f776a;font-size:11px;font-weight:950;letter-spacing:.4px;padding:6px 9px;border-radius:999px;line-height:1;transition:background .18s,color .18s}
+.lang-btn:hover{color:var(--green)}
+.lang-btn.active{background:var(--green);color:#fff;box-shadow:0 3px 9px rgba(17,122,75,.25)}
+@media(max-width:520px){.lang-btn{padding:6px 7px;font-size:10px}.brand-sub{display:none}}
+@media(max-width:380px){.brand-name{font-size:15px}.brand-mark{width:36px;height:36px;border-radius:12px}.install-button.visible{display:none}}
+
+/* Maqsad kartalari (Rasmiy tarif / Toza mahalla / Kompost) */
+.goal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.goal-card{background:#fff;border:1px solid #e3f4e8;border-radius:24px;padding:22px;display:flex;flex-direction:column;box-shadow:0 6px 22px rgba(18,75,47,.05);transition:transform .2s,box-shadow .2s}
+.goal-card h3{font-size:19px;margin:6px 0 10px;color:var(--deep);letter-spacing:-.3px}
+.goal-card p{margin:0;color:#4b5f55;font-size:14px;line-height:1.65;flex:1}
+.goal-tariff{background:var(--mint-b);border-color:#b6eec8}
+.goal-badge{align-self:flex-start;background:var(--deep2);color:#fff;font-size:10px;font-weight:950;letter-spacing:.6px;padding:5px 10px;border-radius:999px}
+.goal-rate{font-size:23px!important;margin:12px 0 8px!important}
+.goal-lead{flex:0!important;color:#3e5a4b!important}
+.rule-list{list-style:none;padding:0;margin:14px 0;display:grid;gap:9px}
+.rule-list li{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--deep)}
+.rule-list svg{width:17px;height:17px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rule-list li.ok svg{color:var(--leaf)}
+.rule-list li.no{color:#c0262d}
+.goal-note{margin-top:auto;display:flex;align-items:center;gap:12px;background:var(--mint-a);border-radius:16px;padding:14px 16px;font-size:13px;line-height:1.5;color:#163d2a}
+.goal-note svg{width:22px;height:22px;flex:none;fill:none;stroke:var(--deep);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.goal-icon{width:46px;height:46px;border-radius:14px;background:var(--mint-a);display:grid;place-items:center;color:var(--deep);margin-bottom:12px}
+.goal-icon.bright{background:var(--mint-c)}
+.goal-icon svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.goal-tag{font-size:10px;font-weight:950;color:var(--leaf);letter-spacing:.5px}
+.goal-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:18px;flex-wrap:wrap}
+.goal-foot small{font-size:11px;color:#55695e}
+.avatar-stack{display:flex}
+.avatar-stack span{width:32px;height:32px;border-radius:50%;background:var(--deep2);color:#fff;font-size:10px;font-weight:950;display:grid;place-items:center;border:2px solid #fff;margin-left:-8px}
+.avatar-stack span:first-child{margin-left:0}
+.avatar-stack span.more{background:var(--mint-d);color:var(--deep)}
+.compost-pill{display:inline-flex;align-items:center;gap:7px;background:var(--mint-b);color:var(--deep2);font-size:12px;font-weight:850;padding:8px 14px;border-radius:999px;width:100%}
+
+/* Eko-ta’sir (Ekologik Statistika va Ta'sir) */
+.eco-impact{margin:28px 0 6px;padding:24px;border-radius:26px;background:#eafbef;border:1px solid #d3f1dc}
+.eco-impact-page{margin-top:0}
+.eco-pill{display:inline-flex;align-items:center;gap:7px;background:var(--mint-c);color:var(--deep);font-size:10px;font-weight:950;letter-spacing:.6px;padding:5px 11px;border-radius:999px}
+.eco-pill svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.eco-impact h2{font-size:clamp(22px,3.4vw,29px);color:var(--deep);margin:10px 0 4px;letter-spacing:-.6px}
+.eco-sub{margin:0 0 18px;color:#3f5549;font-size:14px}
+.eco-impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.eco-card{background:#fff;border:1px solid #e2f3e7;border-radius:22px;padding:20px 22px;box-shadow:0 5px 18px rgba(18,75,47,.04);transition:transform .2s,box-shadow .2s}
+.eco-icon{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;margin-bottom:12px}
+.eco-icon svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.eco-icon.leaf{background:var(--mint-c);color:var(--deep)}
+.eco-icon.co2{background:var(--deep2);color:#fff}
+.eco-icon.bolt{background:var(--mint-d);color:var(--deep)}
+.co2-mark{font-size:11px;font-weight:950;letter-spacing:.3px}
+.co2-mark sub{font-size:8px}
+.eco-tag{font-size:10.5px;font-weight:950;color:var(--leaf);letter-spacing:.4px}
+.eco-value{font-size:clamp(26px,3.5vw,32px);font-weight:950;color:var(--deep);margin:12px 0 10px;letter-spacing:-.6px}
+.eco-card p{margin:0;font-size:12px;line-height:1.65;color:#4f6358}
+
+/* Balans kafolati paneli */
+.guarantee-panel{display:flex;align-items:center;gap:16px;background:var(--mint-b);border:1px solid #b9edc9;border-radius:18px;padding:16px 18px;margin:0 0 16px}
+.guarantee-icon{width:42px;height:42px;border-radius:50%;background:var(--deep2);display:grid;place-items:center;flex:none}
+.guarantee-icon svg{width:21px;height:21px;fill:none;stroke:#fff;stroke-width:1.9;stroke-linejoin:round}
+.guarantee-text{flex:1;min-width:0;font-size:13px;line-height:1.55;color:#24483a}
+.guarantee-text strong{display:block;color:var(--deep);font-size:14px;margin-bottom:2px}
+.guarantee-text span strong{display:inline;font-size:inherit;margin:0}
+.guarantee-btn{flex:none;border:0;background:var(--deep);color:#fff;font-weight:900;font-size:12px;padding:11px 16px;border-radius:999px;transition:transform .18s,box-shadow .18s}
+.guarantee-btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(10,74,46,.25)}
+@media(max-width:600px){.guarantee-panel{flex-wrap:wrap}.guarantee-btn{width:100%}}
+
+/* Karta holati */
+.card-status-box{display:grid;gap:9px;margin:0 0 14px}
+.card-status-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border:1px solid #d8ede0;border-radius:13px;background:#f6fcf8;font-size:12px;color:var(--muted)}
+.card-status-row strong{color:var(--deep);font-size:14px;letter-spacing:.5px;white-space:nowrap}
+.sys-chip{display:inline-block;background:var(--mint-b);color:var(--deep2);font-size:10px;font-weight:950;padding:3px 8px;border-radius:999px;letter-spacing:.4px}
+.card-status-state{padding:10px 13px;border-radius:12px;font-size:12px;font-weight:800;line-height:1.45}
+.card-status-state.open{background:#effaf3;color:#176a43}
+.card-status-state.locked{background:#fff3f0;color:#a2412f}
+.account-card.flash{animation:flashCard 1.4s ease}
+@keyframes flashCard{0%,100%{box-shadow:0 5px 20px rgba(18,75,47,.035)}30%{box-shadow:0 0 0 4px rgba(32,166,106,.35)}}
+
+/* Ehtiyot holati (ogohlantirishdan keyin) */
+.restriction-caution{padding:15px 16px;border:1px solid #f2dfb5;border-radius:16px;background:#fff9ea;color:#8a5f12;margin-bottom:14px;display:grid;gap:5px}
+.restriction-caution span{font-size:12px;line-height:1.5}
+
+/* Mablag‘ni chiqarish oynasi (UZCARD / HUMO) */
+.wd-modal{width:min(100%,520px);border-radius:30px;padding:26px}
+.wd-head{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px}
+.wd-head-icon{width:50px;height:50px;border-radius:15px;background:var(--deep2);display:grid;place-items:center;flex:none}
+.wd-head-icon svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.wd-head h2{margin:2px 0 3px;font-size:21px;color:var(--deep);letter-spacing:-.3px}
+.wd-head p{margin:0;font-size:12.5px;color:#4f6358}
+.wd-close{margin-left:auto;flex:none;background:var(--mint-b)!important;color:var(--deep)!important}
+.wd-info{display:flex;gap:11px;background:#e9fbef;border:1px solid #9fe3b5;border-radius:16px;padding:15px 16px;font-size:12.5px;line-height:1.6;color:#2c4d3c;margin-bottom:18px}
+.wd-info svg{width:19px;height:19px;flex:none;margin-top:1px;fill:none;stroke:var(--deep2);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.wd-info strong{display:block;color:var(--deep);font-size:12.5px}
+.wd-label{display:block;font-size:11.5px;font-weight:950;color:#2b4337;letter-spacing:.3px;margin:16px 0 9px}
+.wd-label-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.wd-label-row .wd-label{margin-bottom:9px}
+.wd-all{border:0;background:none;color:var(--leaf);font-size:12px;font-weight:900;padding:0;margin:16px 0 9px}
+.wd-all:hover{text-decoration:underline}
+.wd-systems{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.wd-system{border:2px solid transparent;background:#e3f9e9;border-radius:999px;padding:11px 10px;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--deep);transition:background .18s,border-color .18s,transform .18s}
+.wd-system strong{font-size:14px;letter-spacing:.3px}
+.wd-system small{font-size:10px;color:#557063;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.wd-system:hover{transform:translateY(-2px)}
+.wd-system.active{background:var(--mint-b);border-color:var(--deep2);box-shadow:0 5px 14px rgba(13,92,56,.14)}
+.wd-input-wrap{position:relative}
+.wd-input-wrap input{width:100%;border:1px solid #a8e6bc;background:#dcfbe5;border-radius:16px;padding:16px 92px 16px 16px;font-size:16px;font-weight:800;color:var(--deep);outline:none;letter-spacing:.6px;font-variant-numeric:tabular-nums}
+.wd-input-wrap input::placeholder{color:#7aa58b;font-weight:600}
+.wd-input-wrap input:focus{border-color:var(--deep2);box-shadow:0 0 0 3px rgba(13,92,56,.12)}
+.wd-chip{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:var(--mint-b);color:var(--deep2);font-size:11px;font-weight:950;padding:5px 10px;border-radius:999px;letter-spacing:.3px;pointer-events:none}
+.wd-amount-wrap input{font-size:21px;padding-top:18px;padding-bottom:18px}
+.wd-unit{position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:900;color:var(--deep);pointer-events:none}
+.wd-fee{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--mint-b);border-radius:14px;padding:13px 16px;margin-top:16px;font-size:12.5px;color:#2e4b3c}
+.wd-fee strong{color:var(--deep);font-size:12.5px;white-space:nowrap}
+.wd-error{min-height:18px;margin:10px 2px 0;font-size:12px;font-weight:700;color:#b6402f}
+.wd-submit{width:100%;margin-top:10px;border:0;border-radius:999px;padding:16px;background:var(--mint-c);color:var(--deep);font-size:15px;font-weight:950;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 10px 22px rgba(34,160,90,.22);transition:transform .18s,filter .18s,opacity .18s}
+.wd-submit svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.wd-submit:hover:not(:disabled){transform:translateY(-2px);filter:brightness(.97)}
+.wd-submit:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
+.wd-receipt{text-align:center}
+.receipt-ok{width:58px;height:58px;border-radius:50%;background:var(--mint-c);color:var(--deep);font-size:28px;font-weight:950;display:grid;place-items:center;margin:4px auto 10px}
+.wd-receipt h3{margin:0 0 14px;color:var(--deep)}
+.wd-receipt dl{margin:0;border:1px dashed #9fd9b2;border-radius:16px;padding:6px 16px;background:#f6fdf8;text-align:left}
+.wd-receipt dl div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dashed #cfe9d8;font-size:13px}
+.wd-receipt dl div:last-child{border-bottom:0}
+.wd-receipt dt{color:var(--muted)}
+.wd-receipt dd{margin:0;font-weight:900;color:var(--deep);text-align:right;word-break:break-all}
+@media(max-width:430px){.wd-modal{padding:20px}.wd-head h2{font-size:18px}.wd-amount-wrap input{font-size:19px}}
+
+/* Top-10 reyting */
+.leader-card{padding:24px}
+.leader-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-bottom:14px;margin-bottom:16px;border-bottom:1px solid #edf5ef;flex-wrap:wrap}
+.leader-head h2{font-size:16px;margin:0;color:var(--deep)}
+.leader-head span{font-size:11.5px;color:#5c6f65}
+.leader-list{display:grid;gap:11px}
+.leader-row{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:12px;padding:15px 18px;border-radius:16px;border:1px solid #e3f2e8;background:#f3fcf6}
+.leader-rank{position:relative;width:40px;height:40px;border-radius:50%;background:var(--mint-d);color:var(--deep);font-weight:950;font-size:15px;display:grid;place-items:center}
+.leader-rank .medal{position:absolute;top:-10px;left:50%;transform:translateX(-50%);font-size:17px;line-height:1}
+.leader-rank span:last-child{margin-top:6px}
+.leader-rank:not(:has(.medal)) span:last-child{margin-top:0}
+.leader-name{font-weight:900;color:var(--deep);font-size:15px;min-width:0;overflow-wrap:anywhere}
+.leader-kg{font-weight:950;color:var(--leaf);font-size:17px;white-space:nowrap}
+.leader-row.gold{background:#fff9e3;border-color:#f6e3a2}.leader-row.gold .leader-rank{background:#fcc419;color:#5c3d00}
+.leader-row.silver{background:#f6f8fb;border-color:#dfe5ee}.leader-row.silver .leader-rank{background:#cfd8e3;color:#263443}
+.leader-row.bronze{background:#fff4ea;border-color:#f5d9bf}.leader-row.bronze .leader-rank{background:#f1caa3;color:#6a3510}
+.leader-row.me{background:var(--mint-b);border:2px solid var(--deep2)}
+.leader-row.me .leader-rank{background:var(--deep2);color:#fff}
+.you-badge{display:inline-block;vertical-align:middle;background:var(--deep2);color:#fff;font-size:10px;font-weight:950;padding:3px 9px;border-radius:999px;margin-left:6px}
+.leader-gap{text-align:center;font-size:11px;font-weight:900;color:var(--muted);padding:4px 0;letter-spacing:.4px}
+@media(max-width:430px){.leader-row{grid-template-columns:44px 1fr auto;padding:12px 13px;gap:9px}.leader-rank{width:36px;height:36px;font-size:13px}.leader-name{font-size:13px}.leader-kg{font-size:14px}.leader-card{padding:16px}}
+
+/* Footer */
+.site-footer{background:#cffadb;border-top:1px solid #b6efc7;margin-top:30px}
+.footer-inner{max-width:1120px;margin:0 auto;padding:24px 22px 14px;display:grid;grid-template-columns:1.6fr 1.2fr auto;gap:22px;align-items:center}
+.footer-brand{display:flex;align-items:center;gap:14px}
+.footer-logo{width:34px;height:34px;border-radius:50%;background:var(--deep);display:grid;place-items:center;flex:none}
+.footer-logo svg{width:17px;height:17px;fill:none;stroke:#cffadb;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.footer-brand strong{display:block;color:var(--deep);font-size:14px}
+.footer-brand span{display:block;color:#33503f;font-size:13px;line-height:1.45}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+.footer-links button{border:0;background:none;padding:4px 2px;font-size:12px;font-weight:900;color:#2f4a3c}
+.footer-links button:hover{color:var(--deep);text-decoration:underline}
+.footer-copy{font-size:11px;font-weight:900;color:#35503f;text-align:right;line-height:1.7}
+.footer-demo{text-align:center;font-size:10.5px;color:#4e6b5a;padding:0 16px 16px}
+@media(max-width:860px){.footer-inner{grid-template-columns:1fr;text-align:center}.footer-brand{justify-content:center;text-align:left}.footer-copy{text-align:center}}
+
+.info-body{font-size:13px;line-height:1.65;color:#3f5549}
+.info-body p{margin:0 0 10px}
+
+/* Moslashuv */
+@media(hover:hover) and (pointer:fine){.goal-card:hover,.eco-card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(18,92,57,.10)}}
+@media(max-width:900px){.goal-grid,.eco-impact-grid{grid-template-columns:1fr 1fr}.goal-tariff{grid-column:span 2}}
+@media(max-width:600px){.goal-grid,.eco-impact-grid{grid-template-columns:1fr}.goal-tariff{grid-column:auto}.eco-impact{padding:18px}.goal-card{padding:18px}}
+
+/* Pastki menyu: 6 ta bo‘lim bitta qatorda */
+.nav-inner{grid-template-columns:repeat(6,minmax(0,1fr))}

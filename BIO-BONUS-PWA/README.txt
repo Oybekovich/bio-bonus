@@ -4,6 +4,7 @@ BIO-BONUS PWA — ogohlantirish tizimi qo‘shilgan demo
 FAYLLAR
 - index.html              Ilova sahifalari va ID-kiosk oynasi
 - styles.css              Dizayn, mobil moslashuv va ogohlantirishlar dizayni
+- i18n.js                 UZ / RU / EN tarjimalar
 - app.js                  Akkauntlar, 200 so‘m/kg bonus, ID, ogohlantirish va bloklash mantiqi
 - pwa.js                  PWA o‘rnatish va service worker ro‘yxatdan o‘tkazish
 - sw.js                   Oflayn ilova qobig‘i
@@ -13,17 +14,19 @@ FAYLLAR
 
 YANGI QOIDALAR (DEMO)
 - 1 kg tasdiqlangan toza organik chiqindi = 200 so‘m.
-- Telefon ilovasidagi avtomat ID oynasida foydalanuvchining o‘z 8 xonali ID raqami ko‘rsatiladi. Foydalanuvchi shu ID ni haqiqiy avtomat monitoriga kiritadi; bonus uning akkauntiga yuboriladi.
-- “Demo avtomat tekshiruvini boshlash” qo‘shimcha bo‘limida test natijasi tanlanadi; bu haqiqiy X-ray yoki AI kamera emas.
-- Toza organik chiqindi uchun demo tarozi qiymati avtomatik olinadi; kg va summa qo‘lda tahrirlanmaydi.
-- Begona material aniqlansa, ID kiritilgandan keyin ogohlantirish aynan shu demo akkauntga biriktiriladi; bonus berilmaydi.
-- 1-qoidabuzarlik: ogohlantirish.
-- 2-qoidabuzarlik: bonus olish 3 kunga bloklanadi.
-- 3-qoidabuzarlik: 3 kunlik blokdan keyingi yangi ogohlantirish; keyingi holatda 7 kunlik blok haqida xabar beriladi.
-- 4-va keyingi qoidabuzarlik: bonus olish 7 kunga bloklanadi.
-- Blok vaqtida mavjud balans o‘chirilmaydi va saqlanadi. Blok tugamaguncha bonus do‘konida pul ishlatish ham, kartaga chiqarish ham yopiladi. Toza organik chiqindi qabul qilinishi mumkin, ammo blok davrida yangi bonus hisoblanmaydi. Blok tugagan paytda balansdan foydalanish avtomatik qayta ochiladi.
-- ID tekshiruv natijasidan keyin 30 soniya ichida kiritilmasa, toza organik chiqindi saqlash bo‘limiga yo‘naltiriladi; aralash/begona chiqindi esa bioxomashyoni ifloslantirmasligi uchun demo karantin bo‘limiga yo‘naltiriladi. ID kiritilmagani uchun akkauntga ogohlantirish bog‘lanmaydi.
-- Ogohlantirishlarim sahifasida xabarlar soni va blok muddati ko‘rinadi.
+- Telefon ilovasidagi ID oynasida foydalanuvchining o‘z 8 xonali ID raqami ko‘rsatiladi.
+- OGOHLANTIRISH VA BLOK:
+  • Begona chiqindi birinchi marta aniqlansa — faqat ogohlantirish.
+  • Ogohlantirishdan keyingi topshirishda ham (oraliqda toza chiqindi bo‘lmasa) yana begona chiqindi — blok.
+    Masalan: bugun ogohlantirish oldi, ertaga yana begona chiqindi tashladi — blok.
+  • Birinchi blok 3 kun, keyingi bloklar 7 kun.
+  • Ogohlantirishdan keyin toza chiqindi topshirilsa, holat tiklanadi: 2–3 kundan keyin tasodifan
+    begona narsa o‘tib ketsa, yana faqat ogohlantirish beriladi.
+    Masalan: begona → toza → toza → begona = ogohlantirish (blok emas).
+  • Blok tugagach ham holat yangidan boshlanadi.
+- Blok vaqtida balans saqlanadi; bonus do‘koni va kartaga chiqarish yopiq; toza chiqindi qabul qilinadi, lekin bonus yozilmaydi.
+- Kartaga chiqarish: faqat UZCARD (8600…) va HUMO (9860…), 16 xonali raqam, komissiya 0. To‘liq karta raqami saqlanmaydi — faqat oxirgi 4 raqam. Haqiqiy pul o‘tkazilmaydi.
+- ID 30 soniyada kiritilmasa, chiqindi umumiy/karantin idishga yo‘naltiriladi va hech kimga ogohlantirish yozilmaydi.
 
 SINOV
 1. ZIPni chiqarib oling.

@@ -2,6 +2,7 @@
   'use strict';
   const installButton = document.getElementById('installAppBtn');
   let installPrompt = null;
+  const tr = key => (window.I18N ? window.I18N.t(key) : key);
 
   const isStandalone = () => window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
   const hideInstallButton = () => {
@@ -20,9 +21,7 @@
     installButton.addEventListener('click', async () => {
       if (!installPrompt) {
         const isAppleMobile = /iphone|ipad|ipod/i.test(navigator.userAgent);
-        const message = isAppleMobile
-          ? 'Safari menyusida Share → Add to Home Screen ni tanlang.'
-          : 'Brauzer menyusidan “Ilovani o‘rnatish” yoki “Install app” bandini tanlang. O‘rnatish uchun HTTPS yoki localhost kerak.';
+        const message = tr(isAppleMobile ? 'install.ios' : 'install.other');
         if (window.showBioToast) window.showBioToast(message);
         else window.alert(message);
         return;
@@ -36,7 +35,7 @@
 
   window.addEventListener('appinstalled', () => {
     hideInstallButton();
-    if (window.showBioToast) window.showBioToast('BIO-BONUS qurilmaga o‘rnatildi!');
+    if (window.showBioToast) window.showBioToast(tr('install.done'));
   });
 
   if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
