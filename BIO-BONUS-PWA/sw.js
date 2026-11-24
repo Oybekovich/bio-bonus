@@ -1,6 +1,6 @@
 /* BIO-BONUS PWA service worker — cache-first static app shell */
 'use strict';
-const CACHE_NAME = 'bio-bonus-shell-v2.0.0';
+const CACHE_NAME = 'bio-bonus-shell-v2.1.0';
 const APP_SHELL = [
   './',
   './index.html',

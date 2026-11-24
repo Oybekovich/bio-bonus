@@ -81,6 +81,7 @@
 <div class="goal-tag" data-i18n="goal2.tag">AYLANMA IQTISODIYOT</div>
 <h3 data-i18n="goal2.title">Kompost va Biogaz</h3>
 <p data-i18n="goal2.text">Siz topshirgan organik moddalar maxsus bio-reaktorlarda qayta ishlanib, qishloq xo‘jaligi uchun kompost hamda toza energiya beradi.</p>
+<div class="ratio-chip" data-i18n="goal2.ratio">⚖️ 2,5 kg chiqindidan → 1 kg organik o‘g‘it</div>
 <div class="goal-foot"><span class="compost-pill">♻️ <span id="compostPill">0 kg chiqindi = 0 kg organik kompost</span></span></div>
 </article>
 </div>
@@ -147,14 +148,14 @@
 <div class="eco-impact-grid"></div>
 </div>
 <div class="card info-card" style="margin-top:16px"><div class="big-emoji">🌱</div><h3 data-i18n="ecoPage.whyTitle">Nega organik chiqindini ajratamiz?</h3><p data-i18n="ecoPage.whyText">To‘g‘ri saralangan organik chiqindi kompostlash yoki anaerob qayta ishlashga yuborilishi mumkin. Bu resurslardan qayta foydalanish va chiqindixonaga tushadigan chiqindini kamaytirishga yordam beradi.</p></div>
-<div class="notice"><strong data-i18n="ecoPage.noteTitle">Hisob-kitob haqida</strong><span data-i18n="eco.note">Raqamlar taxminiy koeffitsiyentlar asosida hisoblanadi: 1 kg organik chiqindi ≈ 0,3 kg kompost, ≈ 0,8 kg CO₂ ekvivalenti, ≈ 0,225 kVt·soat biogaz energiyasi. Bu real o‘lchov natijasi emas.</span></div>
+<div class="notice"><strong data-i18n="ecoPage.noteTitle">Hisob-kitob haqida</strong><span data-i18n="eco.note">Raqamlar taxminiy koeffitsiyentlar asosida hisoblanadi: 2,5 kg organik chiqindidan 1 kg o‘g‘it olinadi (1 kg ≈ 0,4 kg o‘g‘it), ≈ 0,8 kg CO₂ ekvivalenti, ≈ 0,225 kVt·soat biogaz energiyasi. Bu real o‘lchov natijasi emas.</span></div>
 </section>
 
 <!-- ============ PROFIL ============ -->
 <section class="screen" id="screen-account">
 <div class="page-title"><div class="page-head-top"><button class="back-btn" data-back="" type="button" data-i18n="common.back">← Ortga qaytish</button></div><div class="eyebrow" data-i18n="acc.eyebrow">Shaxsiy ma’lumotlar</div><h1 data-i18n="acc.title">Mening hisobim 👤</h1><p data-i18n="acc.sub">Shaxsiy ID, profilingiz va bonus hisobingizni boshqaring.</p></div>
 <div class="card">
-<div class="id-panel"><div><div class="id-label" data-i18n="acc.idLabel">SIZNING 8 XONALI AKKAUNT ID</div><div class="id-value" id="accountIdValue">00000000</div><div class="id-hint" data-i18n="acc.idHint">Avtomat ekraniga shu ID raqamini kiriting.</div></div><div class="id-actions"><button class="mini-action" id="copyAccountId" type="button" data-i18n="acc.copy">ID nusxalash</button></div></div>
+<div class="id-panel"><div><div class="id-label" data-i18n="acc.idLabel">SIZNING 8 XONALI AKKAUNT ID</div><div class="id-value" id="accountIdValue">00000000</div><div class="id-hint" data-i18n="acc.idHint">Avtomat ekraniga shu ID raqamini kiriting.</div><div class="id-phone" id="accountPhone"></div></div><div class="id-actions"><button class="mini-action" id="copyAccountId" type="button" data-i18n="acc.copy">ID nusxalash</button></div></div>
 <div class="guarantee-panel">
 <div class="guarantee-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6l-7-3Z"></path></svg></div>
 <div class="guarantee-text"><strong data-i18n="guar.title">Balans kafolati va daxlsizligi:</strong><span id="guaranteeText"></span></div>
@@ -163,7 +164,7 @@
 <form class="profile-form" id="profileForm"><div class="field"><label for="profileName" data-i18n="acc.nameLabel">Ismingiz</label><input autocomplete="name" id="profileName" maxlength="35" placeholder="Ismingizni kiriting" data-i18n-ph="acc.namePh" required/></div><button class="btn btn-green" type="submit" data-i18n="acc.save">Profilni saqlash</button></form>
 </div>
 <div class="account-grid" style="margin-top:14px">
-<div class="card account-card"><h3 data-i18n="acc.manageTitle">Demo akkauntlarni boshqarish</h3><p data-i18n="acc.manageText">Har bir foydalanuvchi uchun alohida 8 xonali ID yaratiladi. Sinov uchun shu qurilmada bir nechta akkaunt ochib ko‘rishingiz mumkin.</p><div class="field"><label for="accountSelect" data-i18n="acc.switch">Akkauntni almashtirish</label><select id="accountSelect"></select></div><div class="account-tools"><button class="btn btn-soft" id="newAccountBtn" type="button" data-i18n="acc.new">＋ Yangi akkaunt</button></div></div>
+<div class="card account-card"><h3 data-i18n="acc.manageTitle">Demo akkauntlarni boshqarish</h3><p data-i18n="acc.manageText">Har bir foydalanuvchi uchun alohida 8 xonali ID yaratiladi. Sinov uchun shu qurilmada bir nechta akkaunt ochib ko‘rishingiz mumkin.</p><div class="field"><label for="accountSelect" data-i18n="acc.switch">Akkauntni almashtirish</label><select id="accountSelect"></select></div><div class="account-tools"><button class="btn btn-soft" id="newAccountBtn" type="button" data-i18n="acc.new">＋ Yangi akkaunt</button><button class="btn btn-danger" id="logoutBtn" type="button" data-i18n="acc.logout">⎋ Hisobdan chiqish</button></div></div>
 <div class="card account-card" id="cardStatusCard"><h3 data-i18n="cardst.title">Karta holati</h3><p data-i18n="cardst.text">Mablag‘ faqat UZCARD va HUMO kartalariga chiqariladi (demo). Karta raqami to‘liq saqlanmaydi — faqat oxirgi 4 raqami.</p><div class="card-status-box" id="cardStatusBox"></div><button class="btn btn-green" id="cardStatusWithdraw" type="button" data-i18n="cardst.withdraw">💳 Mablag‘ni chiqarish</button></div>
 </div>
 <div class="card" style="margin-top:14px"><h3 style="margin:0 0 7px" data-i18n="data.title">Ma’lumotlar</h3><p class="muted" style="font-size:12px;line-height:1.5" data-i18n="data.text">Demo ma’lumotlar ushbu brauzer xotirasida saqlanadi. Boshqa telefon yoki kompyuterga avtomatik ko‘chmaydi.</p><div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:14px"><button class="btn btn-soft" id="exportData" type="button" data-i18n="data.export">Ma’lumotni yuklab olish</button><button class="btn btn-danger" id="resetData" type="button" data-i18n="data.reset">Demo ma’lumotni tozalash</button></div></div>
@@ -174,7 +175,7 @@
 <!-- ============ FOOTER ============ -->
 <footer class="site-footer">
 <div class="footer-inner">
-<div class="footer-brand"><span class="footer-logo"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 4c-8 0-13 3-13 9a5 5 0 0 0 5 5c6 0 8-7 8-14Z"></path><path d="M4 21c2-5 6-8 11-11"></path></svg></span><div><strong data-i18n="footer.title">BIO-BONUS Milliy Ekologik Dasturi</strong><span data-i18n="footer.sub">Tabiiy resurslarni asrash va rag‘batlantiruvchi chiqindilarni saralash tizimi</span></div></div>
+<div class="footer-brand"><span class="brand-mark footer-logo"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M20 4c-8 0-13 3-13 9a5 5 0 0 0 5 5c6 0 8-7 8-14Z"></path><path d="M4 21c2-5 6-8 11-11"></path></svg></span><div><strong data-i18n="footer.title">BIO-BONUS Milliy Ekologik Dasturi</strong><span data-i18n="footer.sub">Tabiiy resurslarni asrash va rag‘batlantiruvchi chiqindilarni saralash tizimi</span></div></div>
 <nav class="footer-links" aria-label="Footer"><button data-info="rules" type="button" data-i18n="footer.rules">Qoidalar va Zanjir</button><button data-info="privacy" type="button" data-i18n="footer.privacy">Maxfiylik siyosati</button><button data-info="help" type="button" data-i18n="footer.help">Aloqa &amp; Yordam</button></nav>
 <div class="footer-copy">© <span id="footerYear">2026</span> BIO-BONUS. <span data-i18n="footer.copy">Barcha huquqlar himoyalangan.</span></div>
 </div>
@@ -252,6 +253,36 @@
 
 <!-- ============ MA’LUMOT OYNASI (footer havolalari) ============ -->
 <div aria-labelledby="infoTitle" aria-modal="true" class="modal-backdrop" id="infoModal" role="dialog"><div class="modal"><div class="modal-head"><h2 id="infoTitle"></h2><button aria-label="Yopish" data-i18n-aria="common.close" class="close" data-close="infoModal" type="button">×</button></div><div class="info-body" id="infoBody"></div><div class="modal-actions"><button class="btn btn-green" data-close="infoModal" type="button" data-i18n="kiosk.ok">Tushunarli</button></div></div></div>
+
+<!-- ============ KIRISH / RO‘YXATDAN O‘TISH ============ -->
+<div aria-labelledby="authTitle" aria-modal="true" class="auth-screen" hidden id="authScreen" role="dialog">
+<div class="auth-card">
+<div class="auth-top">
+<span class="brand-mark"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24"><path d="M20 4c-8 0-13 3-13 9a5 5 0 0 0 5 5c6 0 8-7 8-14Z"></path><path d="M4 21c2-5 6-8 11-11"></path></svg></span>
+<div class="lang-switch" role="group" aria-label="Til / Язык / Language"><button aria-pressed="true" class="lang-btn active" data-lang="uz" type="button">UZ</button><button aria-pressed="false" class="lang-btn" data-lang="ru" type="button">RU</button><button aria-pressed="false" class="lang-btn" data-lang="en" type="button">EN</button></div>
+</div>
+<h1 id="authTitle" data-i18n="auth.title">BIO-BONUS’ga xush kelibsiz</h1>
+<p class="auth-sub" data-i18n="auth.sub">Telefon raqamingiz orqali kiring yoki ro‘yxatdan o‘ting.</p>
+<form id="authPhoneForm" novalidate>
+<label class="auth-label" for="authPhone" data-i18n="auth.phone">Telefon raqam</label>
+<div class="phone-wrap"><span class="phone-prefix">🇺🇿 +998</span><input autocomplete="tel-national" id="authPhone" inputmode="numeric" maxlength="12" placeholder="90 123 45 67" type="tel"/></div>
+<div class="auth-hint" id="authPhoneHint"></div>
+<div class="auth-name" hidden id="authNameBox"><label class="auth-label" for="authName" data-i18n="auth.name">Ismingiz</label><input autocomplete="name" id="authName" maxlength="35" placeholder="Ismingizni kiriting" data-i18n-ph="auth.namePh" type="text"/></div>
+<div aria-live="polite" class="auth-error" id="authPhoneError"></div>
+<button class="auth-btn" type="submit" data-i18n="auth.send">SMS kod olish</button>
+</form>
+<form hidden id="authCodeForm" novalidate>
+<div class="auth-sent" id="authSentText"></div>
+<div class="demo-code" id="authDemoCode"></div>
+<label class="auth-label" for="authCode" data-i18n="auth.codeLabel">SMS koddagi 4 ta raqam</label>
+<input autocomplete="one-time-code" class="code-input" id="authCode" inputmode="numeric" maxlength="4" placeholder="• • • •" type="text"/>
+<div aria-live="polite" class="auth-error" id="authCodeError"></div>
+<button class="auth-btn" type="submit" data-i18n="auth.verify">Tasdiqlash va kirish</button>
+<div class="auth-links"><button id="authChange" type="button" data-i18n="auth.change">← Raqamni o‘zgartirish</button><button id="authResend" type="button" data-i18n="auth.resend">Kodni qayta yuborish</button></div>
+</form>
+<div class="auth-demo" data-i18n="auth.demo">Demo rejim: haqiqiy SMS yuborilmaydi. Raqam faqat shu brauzerda saqlanadi.</div>
+</div>
+</div>
 
 <div aria-live="polite" class="toast" id="toast" role="status"></div>
 

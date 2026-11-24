@@ -13,8 +13,8 @@
   const MIN_WITHDRAW = 100;
   const DEMO_READINGS = [2.4, 1.8, 3.1, 0.9, 4.2, 1.5];
   const CONTAMINANT_KEYS = ['plastic', 'metal', 'stone', 'bottle', 'glass'];
-  // Eko-ta’sir uchun taxminiy koeffitsiyentlar (1 kg organik chiqindiga)
-  const ECO = { compost: 0.3, co2: 0.8, kwh: 0.225, compostPerTree: 2 };
+  // Eko-ta’sir uchun taxminiy koeffitsiyentlar (1 kg organik chiqindiga). 2,5 kg chiqindidan 1 kg o‘g‘it olinadi.
+  const ECO = { compost: 1 / 2.5, co2: 0.8, kwh: 0.225, compostPerTree: 2 };
   const CARD_SYSTEMS = {
     uzcard: { name: 'UZCARD', prefix: '8600' },
     humo: { name: 'HUMO', prefix: '9860' }
@@ -59,6 +59,7 @@
   const makeTransactionId = () => `BB-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random() * 900 + 100)}`;
   const digitsOnly = value => String(value || '').replace(/\D/g, '');
   const formatCard = digits => digits.replace(/(\d{4})(?=\d)/g, '$1 ');
+  const formatPhone = phone => (phone && phone.length === 12 ? `+998 ${phone.slice(3, 5)} ${phone.slice(5, 8)} ${phone.slice(8, 10)} ${phone.slice(10)}` : '');
   const displayName = account => (account.name && account.name !== 'Do‘st' ? account.name : t('defaultName'));
 
   let pendingReward = null;
@@ -87,7 +88,7 @@
     existing.add(id);
     return {
       id, name: (name || 'Do‘st').trim() || 'Do‘st', balance: 0, totalKg: 0, totalEarned: 0, depositCount: 0,
-      history: [], redemptions: [], withdrawals: [], notifications: [], lastCard: null,
+      phone: '', history: [], redemptions: [], withdrawals: [], notifications: [], lastCard: null,
       contaminationStreak: 0, blockCount: 0, blockedUntil: null
     };
   }
@@ -112,6 +113,7 @@
     return {
       id,
       name: String(raw.name || 'Do‘st').slice(0, 35),
+      phone: /^998[0-9]{9}$/.test(String(raw.phone || '')) ? String(raw.phone) : '',
       balance: validNumber(raw.balance), totalKg: validNumber(raw.totalKg),
       totalEarned: validNumber(raw.totalEarned), depositCount: validNumber(raw.depositCount),
       history,
@@ -127,7 +129,7 @@
   function createDefaultData() {
     const ids = new Set();
     const account = newAccount('Do‘st', ids);
-    return { accounts: [account], currentAccountId: account.id };
+    return { accounts: [account], currentAccountId: account.id, loggedIn: false };
   }
   function fromParsed(parsed) {
     if (!parsed || !Array.isArray(parsed.accounts)) return null;
@@ -135,7 +137,10 @@
     const accounts = parsed.accounts.filter(a => a && typeof a === 'object').map(a => normalizeAccount(a, ids));
     if (!accounts.length) return null;
     const current = accounts.some(a => a.id === String(parsed.currentAccountId)) ? String(parsed.currentAccountId) : accounts[0].id;
-    return { accounts, currentAccountId: current };
+    // Bitta telefon raqam faqat bitta akkauntga tegishli bo‘lsin
+    const seenPhones = new Set();
+    accounts.forEach(a => { if (a.phone) { if (seenPhones.has(a.phone)) a.phone = ''; else seenPhones.add(a.phone); } });
+    return { accounts, currentAccountId: current, loggedIn: parsed.loggedIn === true };
   }
   function migrateLegacy() {
     try {
@@ -334,6 +339,7 @@
   function renderAccount() {
     const a = currentAccount();
     $('accountIdValue').textContent = a.id;
+    $('accountPhone').textContent = a.phone ? t('acc.phone', { phone: formatPhone(a.phone) }) : t('acc.noPhone');
     if (document.activeElement !== $('profileName')) $('profileName').value = a.name === 'Do‘st' ? '' : a.name;
     $('guaranteeText').innerHTML = t('guar.text', { amount: escapeHtml(money(a.balance)) });
     $('accountSelect').innerHTML = appData.accounts.map(x => `<option value="${x.id}" ${x.id === a.id ? 'selected' : ''}>${escapeHtml(displayName(x))} — ${x.id}</option>`).join('');
@@ -380,6 +386,7 @@
     }).join('');
   }
   function render() {
+    renderAuthGate();
     const a = currentAccount();
     $('helloName').textContent = displayName(a);
     $('avatarBtn').textContent = displayName(a).trim().charAt(0).toUpperCase();
@@ -701,6 +708,100 @@
   document.querySelectorAll('.modal-backdrop').forEach(backdrop => backdrop.addEventListener('click', event => { if (event.target === backdrop) closeModal(backdrop.id); }));
   document.addEventListener('keydown', event => { if (event.key === 'Escape') document.querySelectorAll('.modal-backdrop.show').forEach(m => closeModal(m.id)); });
 
+
+  /* ---------- Kirish / ro‘yxatdan o‘tish (telefon raqam, demo SMS kod) ---------- */
+  let authPending = null; // { phone, name, code, accountId }
+  function renderAuthGate() {
+    const show = !appData.loggedIn;
+    $('authScreen').hidden = !show;
+    document.body.classList.toggle('auth-open', show);
+  }
+  function authPhoneDigits() { return digitsOnly($('authPhone').value).slice(0, 9); }
+  function findByPhone(phone) { return appData.accounts.find(a => a.phone === phone); }
+  function updateAuthPhone() {
+    const input = $('authPhone');
+    const d = authPhoneDigits();
+    input.value = [d.slice(0, 2), d.slice(2, 5), d.slice(5, 7), d.slice(7, 9)].filter(Boolean).join(' ');
+    $('authPhoneError').textContent = '';
+    if (d.length < 9) { $('authPhoneHint').textContent = ''; $('authNameBox').hidden = true; return; }
+    const existing = findByPhone(`998${d}`);
+    $('authPhoneHint').innerHTML = existing ? escapeHtml(t('auth.exists', { name: displayName(existing) })) : escapeHtml(t('auth.new'));
+    $('authPhoneHint').className = `auth-hint ${existing ? 'known' : 'fresh'}`;
+    $('authNameBox').hidden = Boolean(existing);
+  }
+  function makeCode() {
+    const bytes = new Uint32Array(1);
+    if (window.crypto && window.crypto.getRandomValues) window.crypto.getRandomValues(bytes); else bytes[0] = Math.floor(Math.random() * 1e9);
+    return String(1000 + (bytes[0] % 9000));
+  }
+  function showCodeStep() {
+    $('authSentText').innerHTML = t('auth.sent', { phone: escapeHtml(formatPhone(authPending.phone)) });
+    $('authDemoCode').innerHTML = t('auth.demoCode', { code: authPending.code });
+    $('authPhoneForm').hidden = true;
+    $('authCodeForm').hidden = false;
+    $('authCode').value = '';
+    $('authCodeError').textContent = '';
+    $('authCode').focus();
+  }
+  $('authPhone').addEventListener('input', updateAuthPhone);
+  $('authPhoneForm').addEventListener('submit', event => {
+    event.preventDefault();
+    const d = authPhoneDigits();
+    if (d.length !== 9) { $('authPhoneError').textContent = t('auth.errPhone'); return; }
+    const phone = `998${d}`;
+    const existing = findByPhone(phone);
+    const name = $('authName').value.trim();
+    if (!existing && !name) { $('authNameBox').hidden = false; $('authPhoneError').textContent = t('auth.errName'); $('authName').focus(); return; }
+    authPending = { phone, name, code: makeCode(), accountId: existing ? existing.id : null };
+    showCodeStep();
+  });
+  $('authCode').addEventListener('input', () => {
+    $('authCode').value = digitsOnly($('authCode').value).slice(0, 4);
+    $('authCodeError').textContent = '';
+  });
+  $('authCodeForm').addEventListener('submit', event => {
+    event.preventDefault();
+    if (!authPending) return;
+    if ($('authCode').value !== authPending.code) { $('authCodeError').textContent = t('auth.errCode'); return; }
+    let account = authPending.accountId ? findAccount(authPending.accountId) : null;
+    let isNew = false;
+    if (!account) {
+      // Telefonsiz eski demo akkaunt bo‘lsa, ma’lumotlari yo‘qolmasligi uchun shu akkauntga bog‘lanadi
+      const current = currentAccount();
+      if (current && !current.phone) account = current;
+      else {
+        const existing = new Set(appData.accounts.map(a => a.id));
+        account = newAccount(authPending.name, existing);
+        appData.accounts.push(account);
+      }
+      account.phone = authPending.phone;
+      account.name = authPending.name.slice(0, 35);
+      isNew = true;
+    }
+    appData.currentAccountId = account.id;
+    appData.loggedIn = true;
+    authPending = null;
+    $('authPhoneForm').reset(); $('authPhoneHint').textContent = ''; $('authNameBox').hidden = true;
+    $('authPhoneForm').hidden = false; $('authCodeForm').hidden = true;
+    saveData(); render(); navigate('home');
+    showToast(isNew ? t('toast.welcomeNew', { id: account.id }) : t('toast.welcomeBack', { name: displayName(account) }));
+  });
+  $('authChange').addEventListener('click', () => {
+    authPending = null;
+    $('authCodeForm').hidden = true; $('authPhoneForm').hidden = false; $('authPhone').focus();
+  });
+  $('authResend').addEventListener('click', () => {
+    if (!authPending) return;
+    authPending.code = makeCode();
+    showCodeStep();
+    showToast(t('auth.resent'));
+  });
+  $('logoutBtn').addEventListener('click', () => {
+    appData.loggedIn = false;
+    saveData(); render();
+    showToast(t('toast.loggedOut'));
+  });
+
   function renderToday() {
     const now = new Date();
     const today = isUz() ? `${UZ_DAYS[now.getDay()]}, ${now.getDate()}-${UZ_MONTHS[now.getMonth()]}` : new Intl.DateTimeFormat(I.locale(), { weekday: 'long', day: 'numeric', month: 'long' }).format(now);
@@ -708,6 +809,8 @@
   }
   I.onChange(() => {
     renderToday();
+    if (authPending && !$('authCodeForm').hidden) showCodeStep();
+    if (authPhoneDigits().length === 9) updateAuthPhone();
     render();
     if (pendingScan) {
       $('idLookup').textContent = pendingScan.kind === 'organic' ? t('kiosk.organicOk') : t('kiosk.contFound', { item: itemName(pendingScan.itemKey) });
