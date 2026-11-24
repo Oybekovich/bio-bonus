@@ -1,6 +1,6 @@
 /* BIO-BONUS PWA service worker — cache-first static app shell */
 'use strict';
-const CACHE_NAME = 'bio-bonus-shell-v2.1.0';
+const CACHE_NAME = 'bio-bonus-shell-v2.2.0';
 const APP_SHELL = [
   './',
   './index.html',
@@ -42,10 +42,10 @@ self.addEventListener('fetch', event => {
       try {
         const response = await fetch(request);
         const cache = await caches.open(CACHE_NAME);
-        cache.put('./index.html', response.clone());
+        if (response && response.ok) cache.put(request, response.clone());
         return response;
       } catch (error) {
-        return (await caches.match('./index.html')) || Response.error();
+        return (await caches.match(request)) || (await caches.match('./index.html')) || Response.error();
       }
     })());
     return;
